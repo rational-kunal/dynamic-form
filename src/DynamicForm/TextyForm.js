@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const TextyFormType = {
   text: 'TextyFormType.text',
@@ -23,6 +23,11 @@ export const NumberForm = ({ schema, onChange }) => {
 
 const TextyForm = ({ type, schema, onChange }) => {
   const [value, setValue] = useState(schema.defaultValue)
+
+  useEffect(() => {
+    if (value !== undefined && typeof onChange === 'function') onChange(value)
+  }, [value])
+
   return (
     <div className='input-group flex-nowrap'>
       <span className='input-group-text'> {schema.label} </span>
@@ -33,7 +38,6 @@ const TextyForm = ({ type, schema, onChange }) => {
         value={value}
         onChange={(e) => {
           setValue(e.target.value)
-          if (typeof onChange === 'function') onChange(e.target.value)
         }}
         aria-label='Username'
         aria-describedby='addon-wrapping'

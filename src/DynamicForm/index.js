@@ -3,6 +3,7 @@ import React from 'react'
 import { NodeForm } from './NodeForm'
 
 // TODO: Handle keys better.
+// TODO: Better way to handle if function then execute i.e. `typeof onChange === 'function'`
 export const DynamicForm = ({ schema, onSubmit }) => {
   let value = {}
   const changeValue = (newValue) => {
