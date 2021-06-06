@@ -50,8 +50,5 @@
   "files": [
     "dist"
   ],
-  "dependencies": {
-    "@material-ui/core": "^4.11.4",
-    "lodash": "^4.17.21"
-  }
+  "dependencies": {}
 }
