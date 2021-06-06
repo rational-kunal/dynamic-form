@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { NodeForm } from './NodeForm'
 
 // TODO: Handle keys better.
 // TODO: Better way to handle if function then execute i.e. `typeof onChange === 'function'`
 export const DynamicForm = ({ schema, onSubmit }) => {
-  let value = {}
+  const [value, setValue] = useState({})
   const changeValue = (newValue) => {
-    value = newValue
+    setValue(newValue)
   }
 
   return (
@@ -21,7 +21,7 @@ export const DynamicForm = ({ schema, onSubmit }) => {
       <button
         className='btn btn-success mx-1 w-auto '
         onClick={() => {
-          if (typeof onSubmit === 'function') onSubmit(value)
+          if (typeof onSubmit === 'function') onSubmit({ ...value })
         }}
       >
         Submit
