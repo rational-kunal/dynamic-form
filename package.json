@@ -1,7 +1,7 @@
 {
-  "name": "dynamic-form",
-  "version": "1.0.0",
-  "description": "Made with create-react-library",
+  "name": "@rational-kunal/dynamic-form",
+  "version": "0.0.1",
+  "description": "Bootstrap flavoured dynamic forms from schema",
   "author": "rational-kunal",
   "license": "MIT",
   "repository": "rational-kunal/dynamic-form",
