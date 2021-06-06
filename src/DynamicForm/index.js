@@ -11,23 +11,21 @@ export const DynamicForm = ({ schema, onSubmit }) => {
   }
 
   return (
-    <div className='card border-primary'>
-      <div className='card-body p-1 d-grid gap-1'>
-        <NodeForm
-          schema={schema}
-          onChange={(newValue) => {
-            changeValue(newValue)
-          }}
-        />
-        <button
-          className='btn btn-success mx-1 w-auto '
-          onClick={() => {
-            if (typeof onSubmit === 'function') onSubmit(value)
-          }}
-        >
-          Submit
-        </button>
-      </div>
+    <div className='d-grid gap-1'>
+      <NodeForm
+        schema={schema}
+        onChange={(newValue) => {
+          changeValue(newValue)
+        }}
+      />
+      <button
+        className='btn btn-success mx-1 w-auto '
+        onClick={() => {
+          if (typeof onSubmit === 'function') onSubmit(value)
+        }}
+      >
+        Submit
+      </button>
     </div>
   )
 }
