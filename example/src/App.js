@@ -1,41 +1,81 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { DynamicForm, DynamicFormType } from 'dynamic-form'
 import 'dynamic-form/dist/index.css'
 
 const App = () => {
-  const unitSchema = {
+  const [value, setValue] = useState({})
+  const personalSchema = {
+    presonalName: {
+      label: 'Name',
+      type: DynamicFormType.text,
+      placeholder: 'Full name'
+    },
+    personalEmail: {
+      label: 'Email',
+      type: DynamicFormType.text,
+      placeholder: 'Email address'
+    },
     age: {
       label: 'Age',
       type: DynamicFormType.number,
-      placeholder: 'Your age',
-      defaultValue: 0
-    },
-    name: {
-      label: 'Full name',
-      type: DynamicFormType.text,
-      placeholder: 'Some full name'
+      placeholder: 'Age'
     }
   }
 
-  const repeatableSchema = {
-    form: {
-      label: 'Form name',
+  const skillSchema = {
+    skillName: {
+      label: 'Skill',
       type: DynamicFormType.text,
-      placeholder: 'Form name'
+      placeholder: 'Skill'
     },
-    nestedUser: {
-      label: 'Nested User',
-      type: DynamicFormType.nested,
-      schema: unitSchema
-    },
-    users: {
-      label: 'Users',
-      type: DynamicFormType.repeatable,
-      schema: unitSchema
+    skillLevel: {
+      label: 'Skill lavel',
+      type: DynamicFormType.number,
+      defaultValue: 0
     }
   }
-  return <DynamicForm schema={repeatableSchema} />
+
+  const schema = {
+    personal: {
+      label: 'Personal information',
+      type: DynamicFormType.nested,
+      schema: personalSchema
+    },
+    skill: {
+      label: 'Skills',
+      type: DynamicFormType.repeatable,
+      schema: skillSchema
+    }
+  }
+
+  return (
+    <div className='row'>
+      <div className='card col border-light'>
+        <div className='card-body'>
+          <DynamicForm
+            schema={schema}
+            onSubmit={(newValue) => setValue(newValue)}
+          />
+        </div>
+      </div>
+      <div className='card col border-success'>
+        <div className='card-body'>
+          <pre>
+            <code>{JSON.stringify(value, null, 2)}</code>
+          </pre>
+        </div>
+      </div>
+    </div>
+  )
 }
 
-export default App
+const AppWrapper = () => {
+  return (
+    <div className='container my-4'>
+      <App />
+    </div>
+  )
+}
+
+export default AppWrapper
