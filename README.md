@@ -24,6 +24,7 @@ I will try to maintain in my free time. If you want to contribute or have some s
 - [ ] Support typescript.
 - [ ] Support additional input types.
 - [ ] Support component level validation and error handling.
+- [ ] Update example code to contain texual information.
 
 ## License
 

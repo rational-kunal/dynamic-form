@@ -42,7 +42,7 @@ const App = () => {
       type: DynamicFormType.nested,
       schema: personalSchema
     },
-    skill: {
+    skills: {
       label: 'Skills',
       type: DynamicFormType.repeatable,
       schema: skillSchema
@@ -50,19 +50,26 @@ const App = () => {
   }
 
   return (
-    <div className='row'>
-      <div className='card col border-light'>
-        <div className='card-body'>
+    <div className='card border-light'>
+      <div className='row card-body'>
+        <div className='col p-1'>
+          <div className='rounded text-white-50 bg-dark p-2'>
+            <pre>
+              <code>schema = {JSON.stringify(schema, null, 2)}</code>
+            </pre>
+          </div>
+        </div>
+        <div className='col'>
           <DynamicForm
             schema={schema}
             onSubmit={(newValue) => setValue(newValue)}
           />
         </div>
-      </div>
-      <div className='card col border-success'>
-        <div className='card-body'>
+        <div className='col p-1'>
           <pre>
-            <code>{JSON.stringify(value, null, 2)}</code>
+            <code className='fw-bold'>
+              onSubmit = {JSON.stringify(value, null, 2)}
+            </code>
           </pre>
         </div>
       </div>
