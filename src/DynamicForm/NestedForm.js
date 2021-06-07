@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import { NodeForm } from './NodeForm'
 
-export const NestedForm = ({ schema, onChange }) => {
+export const NestedForm = ({ schema, onChange = () => {} }) => {
   const [value, setValue] = useState({})
 
   const changeValue = (newValue) => {
@@ -10,7 +10,7 @@ export const NestedForm = ({ schema, onChange }) => {
   }
 
   useEffect(() => {
-    if (typeof onChange === 'function') onChange(value)
+    onChange(value)
   }, [value])
 
   // TODO: Add icon to delete button

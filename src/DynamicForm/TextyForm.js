@@ -5,7 +5,7 @@ const TextyFormType = {
   number: 'TextyFormType.number'
 }
 
-export const StringForm = ({ schema, onChange }) => {
+export const StringForm = ({ schema, onChange = () => {} }) => {
   return (
     <TextyForm type={TextyFormType.text} schema={schema} onChange={onChange} />
   )
@@ -25,7 +25,7 @@ const TextyForm = ({ type, schema, onChange }) => {
   const [value, setValue] = useState(schema.defaultValue)
 
   useEffect(() => {
-    if (value !== undefined && typeof onChange === 'function') onChange(value)
+    if (value !== undefined) onChange(value)
   }, [value])
 
   return (

@@ -7,7 +7,11 @@ import { NestedForm } from './NestedForm'
 
 // TODO: Handle keys better.
 // TODO: On hover add border
-export const NodeForm = ({ schema, onChange, onDelete }) => {
+export const NodeForm = ({
+  schema,
+  onChange = () => {},
+  onDelete = () => {}
+}) => {
   const [value, setValue] = useState({})
   const changeValue = (key, newValueForKey) => {
     setValue((oldValue) => {
@@ -17,7 +21,7 @@ export const NodeForm = ({ schema, onChange, onDelete }) => {
   }
 
   useEffect(() => {
-    if (typeof onChange === 'function') onChange(value)
+    onChange(value)
   }, [value])
 
   // Iterate through schema and get each form type.
