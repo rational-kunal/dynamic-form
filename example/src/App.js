@@ -62,13 +62,13 @@ const App = () => {
         <div className='col'>
           <DynamicForm
             schema={schema}
-            onSubmit={(newValue) => setValue(newValue)}
+            onChange={(newValue) => setValue(newValue)}
           />
         </div>
         <div className='col p-1'>
           <pre>
             <code className='fw-bold'>
-              onSubmit = {JSON.stringify(value, null, 2)}
+              onChange = {JSON.stringify(value, null, 2)}
             </code>
           </pre>
         </div>
