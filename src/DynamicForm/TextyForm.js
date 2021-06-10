@@ -28,6 +28,10 @@ const TextyForm = ({ type, schema, onChange }) => {
     if (value !== undefined) onChange(value)
   }, [value])
 
+  const changeValue = (newValue) => {
+    setValue(type === TextyFormType.number ? parseInt(newValue) : newValue)
+  }
+
   return (
     <div className='input-group flex-nowrap'>
       <span className='input-group-text'> {schema.label} </span>
@@ -36,11 +40,7 @@ const TextyForm = ({ type, schema, onChange }) => {
         className='form-control'
         placeholder={schema.placeholder}
         value={value}
-        onChange={(e) => {
-          setValue(e.target.value)
-        }}
-        aria-label='Username'
-        aria-describedby='addon-wrapping'
+        onChange={(e) => changeValue(e.target.value)}
       />
     </div>
   )
