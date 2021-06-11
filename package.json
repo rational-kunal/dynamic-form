@@ -1,6 +1,6 @@
 {
   "name": "@rational-kunal/dynamic-form",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "Bootstrap flavoured dynamic forms from schema",
   "author": "rational-kunal",
   "license": "MIT",
