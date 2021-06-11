@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { NodeForm } from './NodeForm'
+import util from '../util'
 
 let keyIndex = 0
 export const ReapeatableForm = ({ schema, onChange = () => {} }) => {
@@ -39,7 +40,9 @@ export const ReapeatableForm = ({ schema, onChange = () => {} }) => {
   }
 
   useEffect(() => {
-    onChange([...Object.values(value)])
+    if (util.isFunction(onChange)) {
+      onChange([...Object.values(value)])
+    }
   }, [value])
 
   // TODO: Add icon to delete button

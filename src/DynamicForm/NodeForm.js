@@ -4,10 +4,10 @@ import { DynamicFormType } from '.'
 import { StringForm, NumberForm } from './TextyForm'
 import { ReapeatableForm } from './RepeatableForm'
 import { NestedForm } from './NestedForm'
+import util from '../util'
 
 // TODO: Handle keys better.
 // TODO: On hover add border
-// TODO: Better way to consistently handle if function then execute i.e. `typeof onChange === 'function'`
 export const NodeForm = ({ schema, onChange = () => {}, onDelete }) => {
   const [value, setValue] = useState({})
   const changeValue = (key, newValueForKey) => {
@@ -18,7 +18,9 @@ export const NodeForm = ({ schema, onChange = () => {}, onDelete }) => {
   }
 
   useEffect(() => {
-    if (typeof onChange === 'function') onChange(value)
+    if (util.isFunction(onChange)) {
+      onChange(value)
+    }
   }, [value])
 
   // Iterate through schema and get each form type.
@@ -68,7 +70,7 @@ export const NodeForm = ({ schema, onChange = () => {}, onDelete }) => {
   }
 
   let deleteButton
-  if (onDelete) {
+  if (util.isFunction(onDelete)) {
     deleteButton = (
       <div className=''>
         <button
