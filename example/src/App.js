@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import { DynamicForm, DynamicFormType } from 'dynamic-form'
-import 'dynamic-form/dist/index.css'
 
 const App = () => {
   const [value, setValue] = useState({})
