@@ -22,7 +22,10 @@ export const NumberForm = ({ schema, onChange }) => {
 }
 
 const TextyForm = ({ type, schema, onChange }) => {
-  const [value, setValue] = useState(schema.defaultValue)
+  // If default value is not availble then use empty string as default value so html will not throw error later.
+  const [value, setValue] = useState(
+    schema.defaultValue !== undefined ? schema.defaultValue : ''
+  )
 
   useEffect(() => {
     if (value !== undefined) onChange(value)
