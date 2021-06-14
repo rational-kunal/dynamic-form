@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useRef } from 'react'
 
 import { NodeForm } from './NodeForm'
 import util from '../util'
@@ -6,16 +6,16 @@ import util from '../util'
 // TODO: Add test for keys with large schema.
 // TODO: Dont store valuew in state. Make fewer renders.
 export const DynamicForm = ({ schema = {}, onChange = () => {}, onSubmit }) => {
-  const [value, setValue] = useState({})
+  // Value container to store values.
+  const valueContainer = useRef({})
   const changeValue = (newValue) => {
-    setValue(newValue)
-  }
+    valueContainer.current = newValue
 
-  useEffect(() => {
+    // Update out function that value is changed.
     if (util.isFunction(onChange)) {
-      onChange(value)
+      onChange({ ...valueContainer.current })
     }
-  }, [value])
+  }
 
   let submitButton
   if (util.isFunction(onSubmit)) {
@@ -23,7 +23,7 @@ export const DynamicForm = ({ schema = {}, onChange = () => {}, onSubmit }) => {
       <button
         className='btn btn-success mx-1 w-auto '
         onClick={() => {
-          onSubmit({ ...value })
+          onSubmit({ ...valueContainer.current })
         }}
       >
         Submit

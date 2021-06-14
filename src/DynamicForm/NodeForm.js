@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useRef } from 'react'
 
 import { DynamicFormType } from '.'
 import { StringForm, NumberForm } from './TextyForm'
@@ -8,23 +8,19 @@ import util from '../util'
 
 // TODO: On hover add border
 export const NodeForm = ({ schema, onChange = () => {}, onDelete }) => {
-  const [value, setValue] = useState({})
+  // Value container to store values.
+  const valueContainer = useRef({})
   // Constant key prefix for children.
   const keyPrefixContainer = useRef(util.uniqueKey())
   const keyPrefix = keyPrefixContainer.current
 
   const changeValue = (key, newValueForKey) => {
-    setValue((oldValue) => {
-      oldValue[key] = newValueForKey
-      return { ...oldValue }
-    })
-  }
-
-  useEffect(() => {
+    const value = valueContainer.current
+    value[key] = newValueForKey
     if (util.isFunction(onChange)) {
-      onChange(value)
+      onChange({ ...value })
     }
-  }, [value])
+  }
 
   // Iterate through schema and get each form type.
   const forms = []

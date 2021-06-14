@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 
 import { NodeForm } from './NodeForm'
 import util from '../util'
@@ -6,7 +6,8 @@ import util from '../util'
 let keyIndex = 0
 export const ReapeatableForm = ({ schema, onChange = () => {} }) => {
   const [forms, setForms] = useState([])
-  const [value, setValue] = useState({})
+  // Value container to store values.
+  const valueContainer = useRef({})
   // Constant key prefix for children.
   const keyPrefixContainer = useRef(util.uniqueKey())
   const keyPrefix = keyPrefixContainer.current
@@ -17,6 +18,18 @@ export const ReapeatableForm = ({ schema, onChange = () => {} }) => {
     })
   }
 
+  // Changes value for given key in `valueContainer` and passes the information to parent
+  const changeValueForKey = (key, newValue) => {
+    valueContainer.current[key] = newValue
+    onChange(Object.values(valueContainer.current))
+  }
+
+  // Removes value for given key in `valueContainer` and passes the information to parent
+  const removeValueForKey = (key) => {
+    delete valueContainer.current[key]
+    onChange(Object.values(valueContainer.current))
+  }
+
   const addForm = () => {
     const newKey = `${keyPrefix + schema.label}_${keyIndex++}`
     setForms([
@@ -25,29 +38,15 @@ export const ReapeatableForm = ({ schema, onChange = () => {} }) => {
         key={newKey}
         schema={schema.schema}
         onChange={(newValue) => {
-          changeValue(newKey, newValue)
+          changeValueForKey(newKey, newValue)
         }}
         onDelete={() => {
+          removeValueForKey(newKey)
           deleteFormWithKey(newKey)
-          changeValue(newKey, null)
         }}
       />
     ])
   }
-
-  const changeValue = (key, newValue) => {
-    setValue((oldValue) => {
-      if (newValue) oldValue[key] = newValue
-      else delete oldValue[key] // TODO: Check if it is safe to use delete.
-      return { ...oldValue }
-    })
-  }
-
-  useEffect(() => {
-    if (util.isFunction(onChange)) {
-      onChange([...Object.values(value)])
-    }
-  }, [value])
 
   // TODO: Add icon to delete button
   return (

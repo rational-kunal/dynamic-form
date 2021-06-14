@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 const TextyFormType = {
   text: 'TextyFormType.text',
@@ -11,7 +11,7 @@ export const StringForm = ({ schema, onChange = () => {} }) => {
   )
 }
 
-export const NumberForm = ({ schema, onChange }) => {
+export const NumberForm = ({ schema, onChange = () => {} }) => {
   return (
     <TextyForm
       type={TextyFormType.number}
@@ -21,18 +21,17 @@ export const NumberForm = ({ schema, onChange }) => {
   )
 }
 
-const TextyForm = ({ type, schema, onChange }) => {
+const TextyForm = ({ type, schema, onChange = () => {} }) => {
   // If default value is not availble then use empty string as default value so html will not throw error later.
   const [value, setValue] = useState(
     schema.defaultValue !== undefined ? schema.defaultValue : ''
   )
 
-  useEffect(() => {
-    if (value !== undefined) onChange(value)
-  }, [value])
-
   const changeValue = (newValue) => {
-    setValue(type === TextyFormType.number ? parseInt(newValue) : newValue)
+    const parsedValue =
+      type === TextyFormType.number ? parseInt(newValue) : newValue
+    setValue(parsedValue)
+    if (parsedValue !== undefined) onChange(parsedValue)
   }
 
   return (
