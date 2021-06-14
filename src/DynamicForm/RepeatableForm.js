@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 import { NodeForm } from './NodeForm'
 import util from '../util'
@@ -7,6 +7,10 @@ let keyIndex = 0
 export const ReapeatableForm = ({ schema, onChange = () => {} }) => {
   const [forms, setForms] = useState([])
   const [value, setValue] = useState({})
+  // Constant key prefix for children.
+  const keyPrefixContainer = useRef(util.uniqueKey())
+  const keyPrefix = keyPrefixContainer.current
+
   const deleteFormWithKey = (key) => {
     setForms((oldForms) => {
       return oldForms.filter((x) => x.key !== key)
@@ -14,7 +18,7 @@ export const ReapeatableForm = ({ schema, onChange = () => {} }) => {
   }
 
   const addForm = () => {
-    const newKey = `${schema.label}_${keyIndex++}`
+    const newKey = `${keyPrefix + schema.label}_${keyIndex++}`
     setForms([
       ...forms,
       <NodeForm

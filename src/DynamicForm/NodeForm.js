@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 
 import { DynamicFormType } from '.'
 import { StringForm, NumberForm } from './TextyForm'
@@ -6,10 +6,13 @@ import { ReapeatableForm } from './RepeatableForm'
 import { NestedForm } from './NestedForm'
 import util from '../util'
 
-// TODO: Handle keys better.
 // TODO: On hover add border
 export const NodeForm = ({ schema, onChange = () => {}, onDelete }) => {
   const [value, setValue] = useState({})
+  // Constant key prefix for children.
+  const keyPrefixContainer = useRef(util.uniqueKey())
+  const keyPrefix = keyPrefixContainer.current
+
   const changeValue = (key, newValueForKey) => {
     setValue((oldValue) => {
       oldValue[key] = newValueForKey
@@ -29,7 +32,7 @@ export const NodeForm = ({ schema, onChange = () => {}, onDelete }) => {
     if (schemaForKey.type === DynamicFormType.text) {
       forms.push(
         <StringForm
-          key={key}
+          key={keyPrefix + key}
           schema={schemaForKey}
           onChange={(newValueForKey) => {
             changeValue(key, newValueForKey)
@@ -49,7 +52,7 @@ export const NodeForm = ({ schema, onChange = () => {}, onDelete }) => {
     } else if (schemaForKey.type === DynamicFormType.nested) {
       forms.push(
         <NestedForm
-          key={key}
+          key={keyPrefix + key}
           schema={schemaForKey}
           onChange={(newValueForKey) => {
             changeValue(key, newValueForKey)
@@ -59,7 +62,7 @@ export const NodeForm = ({ schema, onChange = () => {}, onDelete }) => {
     } else if (schemaForKey.type === DynamicFormType.repeatable) {
       forms.push(
         <ReapeatableForm
-          key={key}
+          key={keyPrefix + key}
           schema={schemaForKey}
           onChange={(newValueForKey) => {
             changeValue(key, newValueForKey)

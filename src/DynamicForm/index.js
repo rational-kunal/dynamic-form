@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { NodeForm } from './NodeForm'
 import util from '../util'
 
-// TODO: Handle keys better.
+// TODO: Add test for keys with large schema.
+// TODO: Dont store valuew in state. Make fewer renders.
 export const DynamicForm = ({ schema = {}, onChange = () => {}, onSubmit }) => {
   const [value, setValue] = useState({})
   const changeValue = (newValue) => {
