@@ -4,7 +4,6 @@ import { NodeForm } from './NodeForm'
 import util from '../util'
 
 // TODO: Add test for keys with large schema.
-// TODO: Dont store valuew in state. Make fewer renders.
 export const DynamicForm = ({ schema = {}, onChange = () => {}, onSubmit }) => {
   // Value container to store values.
   const valueContainer = useRef({})
@@ -13,7 +12,9 @@ export const DynamicForm = ({ schema = {}, onChange = () => {}, onSubmit }) => {
 
     // Update out function that value is changed.
     if (util.isFunction(onChange)) {
-      onChange({ ...valueContainer.current })
+      util.dispatchAsync(() => {
+        onChange({ ...valueContainer.current })
+      })
     }
   }
 

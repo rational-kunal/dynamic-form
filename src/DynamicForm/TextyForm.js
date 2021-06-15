@@ -23,9 +23,14 @@ export const NumberForm = ({ schema, onChange = () => {} }) => {
 
 const TextyForm = ({ type, schema, onChange = () => {} }) => {
   // If default value is not availble then use empty string as default value so html will not throw error later.
-  const [value, setValue] = useState(
-    schema.defaultValue !== undefined ? schema.defaultValue : ''
-  )
+  const [value, setValue] = useState(() => {
+    if (schema.defaultValue !== undefined) {
+      onChange(schema.defaultValue)
+      return schema.defaultValue
+    } else {
+      return ''
+    }
+  })
 
   const changeValue = (newValue) => {
     const parsedValue =
