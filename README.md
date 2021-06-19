@@ -10,21 +10,24 @@ I will try to maintain in my free time. If you want to contribute or have some s
 # TODO@alpha:
 
 - [ ] Add bootstrap as a dependancy.
-- [ ] Support minial input json.
-- [ ] Add basic tests.
-  - [ ] Add basic validation.
+- [x] Support minial input json.
+- [x] Add basic tests.
 - [ ] Add code documentation.
 - [x] Update example.
 
 ### TODO:
 
 - [ ] Add project level documentation.
+- [ ] Use `useCallback`.
 - [ ] Support sizing form components.
+- [ ] Refractor schema unit test.
 - [ ] Support validation and error handling throught.
 - [ ] Support typescript.
 - [ ] Support additional input types.
 - [ ] Support component level validation and error handling.
 - [ ] Update example code to contain texual information.
+- [ ] Add support to create single unit form with simpler schema.
+- [ ] Refractor: "Nested" can give wrong idea, rename it to something else.
 
 ## License
 

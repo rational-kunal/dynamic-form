@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 
-import { DynamicFormType } from '.'
+import { DynamicFormType } from '../Schema'
 import { StringForm, NumberForm } from './TextyForm'
 import { ReapeatableForm } from './RepeatableForm'
 import { NestedForm } from './NestedForm'
@@ -25,47 +25,26 @@ export const NodeForm = ({ schema, onChange = () => {}, onDelete }) => {
   // Iterate through schema and get each form type.
   const forms = []
   for (const [key, schemaForKey] of Object.entries(schema)) {
+    let Form
     if (schemaForKey.type === DynamicFormType.text) {
-      forms.push(
-        <StringForm
-          key={keyPrefix + key}
-          schema={schemaForKey}
-          onChange={(newValueForKey) => {
-            changeValue(key, newValueForKey)
-          }}
-        />
-      )
+      Form = StringForm
     } else if (schemaForKey.type === DynamicFormType.number) {
-      forms.push(
-        <NumberForm
-          key={key}
-          schema={schemaForKey}
-          onChange={(newValueForKey) => {
-            changeValue(key, newValueForKey)
-          }}
-        />
-      )
+      Form = NumberForm
     } else if (schemaForKey.type === DynamicFormType.nested) {
-      forms.push(
-        <NestedForm
-          key={keyPrefix + key}
-          schema={schemaForKey}
-          onChange={(newValueForKey) => {
-            changeValue(key, newValueForKey)
-          }}
-        />
-      )
+      Form = NestedForm
     } else if (schemaForKey.type === DynamicFormType.repeatable) {
-      forms.push(
-        <ReapeatableForm
-          key={keyPrefix + key}
-          schema={schemaForKey}
-          onChange={(newValueForKey) => {
-            changeValue(key, newValueForKey)
-          }}
-        />
-      )
+      Form = ReapeatableForm
     }
+
+    forms.push(
+      <Form
+        key={keyPrefix + key}
+        schema={schemaForKey}
+        onChange={(newValueForKey) => {
+          changeValue(key, newValueForKey)
+        }}
+      />
+    )
   }
 
   let deleteButton

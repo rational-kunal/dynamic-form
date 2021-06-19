@@ -5,6 +5,7 @@ import util from '../util'
 
 // TODO: Add test for keys with large schema.
 export const DynamicForm = ({ schema = {}, onChange = () => {}, onSubmit }) => {
+  console.log(schema)
   // Value container to store values.
   const valueContainer = useRef({})
   const changeValue = (newValue) => {
@@ -43,11 +44,4 @@ export const DynamicForm = ({ schema = {}, onChange = () => {}, onSubmit }) => {
       {submitButton}
     </div>
   )
-}
-
-export const DynamicFormType = {
-  text: 'DynamicFormType.Text',
-  number: 'DynamicFormType.Number',
-  nested: 'DynamicFormType.Nested',
-  repeatable: 'DynamicFormType.Repeatable'
 }

@@ -1,23 +1,23 @@
 import React, { useState } from 'react'
 
-import { DynamicForm, DynamicFormType } from 'dynamic-form'
+import DynamicForm from 'dynamic-form'
 
 const App = () => {
   const [value, setValue] = useState({})
   const personalSchema = {
     presonalName: {
       label: 'Name',
-      type: DynamicFormType.text,
+      type: DynamicForm.type.text,
       placeholder: 'Full name'
     },
     personalEmail: {
       label: 'Email',
-      type: DynamicFormType.text,
+      type: DynamicForm.type.text,
       placeholder: 'Email address'
     },
     age: {
       label: 'Age',
-      type: DynamicFormType.number,
+      type: DynamicForm.type.number,
       placeholder: 'Age'
     }
   }
@@ -25,12 +25,12 @@ const App = () => {
   const skillSchema = {
     skillName: {
       label: 'Skill',
-      type: DynamicFormType.text,
+      type: DynamicForm.type.text,
       placeholder: 'Skill'
     },
     skillLevel: {
       label: 'Skill lavel',
-      type: DynamicFormType.number,
+      type: DynamicForm.type.number,
       defaultValue: 0
     }
   }
@@ -38,12 +38,12 @@ const App = () => {
   const schema = {
     personal: {
       label: 'Personal information',
-      type: DynamicFormType.nested,
+      type: DynamicForm.type.nested,
       schema: personalSchema
     },
     skills: {
       label: 'Skills',
-      type: DynamicFormType.repeatable,
+      type: DynamicForm.type.repeatable,
       schema: skillSchema
     }
   }
@@ -59,8 +59,8 @@ const App = () => {
           </div>
         </div>
         <div className='col'>
-          <DynamicForm
-            schema={schema}
+          <DynamicForm.Form
+            schema={DynamicForm.schema(schema)}
             onChange={(newValue) => setValue(newValue)}
           />
         </div>
