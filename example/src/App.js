@@ -1,77 +1,53 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import DynamicForm from 'dynamic-form'
+import FormExample from './components/FormExample'
+import CodeExample from './components/CodeExample'
+
+const formExamples = [
+  { title: 'String Form', schema: { Name: 'John Doe' } },
+  { title: 'Number Form', schema: { Age: 21 } },
+  {
+    title: 'Nested Form',
+    schema: {
+      'Personal Information': {
+        Name: 'John Doe',
+        Age: 21
+      }
+    }
+  },
+  {
+    title: 'Reapeted Form',
+    schema: {
+      Skill: [
+        {
+          skillName: {
+            label: 'Skill',
+            type: DynamicForm.type.text,
+            placeholder: 'skill'
+          },
+          skillLevel: {
+            label: 'Skill level',
+            type: DynamicForm.type.number,
+            placeholder: 'level'
+          }
+        }
+      ]
+    }
+  }
+]
 
 const App = () => {
-  const [value, setValue] = useState({})
-  const personalSchema = {
-    presonalName: {
-      label: 'Name',
-      type: DynamicForm.type.text,
-      placeholder: 'Full name'
-    },
-    personalEmail: {
-      label: 'Email',
-      type: DynamicForm.type.text,
-      placeholder: 'Email address'
-    },
-    age: {
-      label: 'Age',
-      type: DynamicForm.type.number,
-      placeholder: 'Age'
-    }
-  }
-
-  const skillSchema = {
-    skillName: {
-      label: 'Skill',
-      type: DynamicForm.type.text,
-      placeholder: 'Skill'
-    },
-    skillLevel: {
-      label: 'Skill lavel',
-      type: DynamicForm.type.number,
-      defaultValue: 0
-    }
-  }
-
-  const schema = {
-    personal: {
-      label: 'Personal information',
-      type: DynamicForm.type.nested,
-      schema: personalSchema
-    },
-    skills: {
-      label: 'Skills',
-      type: DynamicForm.type.repeatable,
-      schema: skillSchema
-    }
-  }
-
   return (
-    <div className='card border-light'>
-      <div className='row card-body'>
-        <div className='col p-1'>
-          <div className='rounded text-white-50 bg-dark p-2'>
-            <pre>
-              <code>schema = {JSON.stringify(schema, null, 2)}</code>
-            </pre>
-          </div>
-        </div>
-        <div className='col'>
-          <DynamicForm.Form
-            schema={DynamicForm.schema(schema)}
-            onChange={(newValue) => setValue(newValue)}
-          />
-        </div>
-        <div className='col p-1'>
-          <pre>
-            <code className='fw-bold'>
-              onChange = {JSON.stringify(value, null, 2)}
-            </code>
-          </pre>
-        </div>
+    <div>
+      <div className='mb-4'>
+        <CodeExample />
       </div>
+      {formExamples.map((ex) => (
+        <div className='mb-4'>
+          <FormExample key={ex.title} title={ex.title} schema={ex.schema} />
+        </div>
+      ))}
     </div>
   )
 }
