@@ -1,6 +1,5 @@
 import React from 'react'
 
-import DynamicForm from 'dynamic-form'
 import FormExample from './components/FormExample'
 import CodeExample from './components/CodeExample'
 
@@ -21,16 +20,8 @@ const formExamples = [
     schema: {
       Skill: [
         {
-          skillName: {
-            label: 'Skill',
-            type: DynamicForm.type.text,
-            placeholder: 'skill'
-          },
-          skillLevel: {
-            label: 'Skill level',
-            type: DynamicForm.type.number,
-            placeholder: 'level'
-          }
+          Skill: 'C++ / JS',
+          'Skill level': 0
         }
       ]
     }
