@@ -1,34 +1,162 @@
+NOTE: 🚧 Documentaion is in progress 🚧
+
 # dynamic-form
 
-Created this component so that I can use complex forms in my other projects easily.
-I will try to maintain in my free time. If you want to contribute or have some suggestions please hit me up.
+Statefull forms on the fly.
 
-### Short demo:
+## Install
 
-![example-mvp](https://user-images.githubusercontent.com/28783605/120935494-b38a5380-c720-11eb-8a58-2297231621d0.gif)
+```bash
+npm i @rational-kunal/dynamic-form
+```
 
-# TODO@alpha:
+## Usage
 
-- [ ] Add bootstrap as a dependancy.
-- [x] Support minial input json.
-- [x] Add basic tests.
-- [ ] Add code documentation.
-- [x] Update example.
+`DynamicForm.Form` creates a beautiful form for a given schema. Schemas should be passed through `DynamicForm.schema` to parse it before passing it to the component. See the schemas section to see how to render the different types of complex forms.
 
-### TODO:
+```js
+import DynamicForm from 'dynamic-form'
 
-- [ ] Add project level documentation.
-- [ ] Use `useCallback`.
-- [ ] Support sizing form components.
-- [ ] Refractor schema unit test.
-- [ ] Support validation and error handling throught.
-- [ ] Support typescript.
-- [ ] Support additional input types.
-- [ ] Support component level validation and error handling.
-- [ ] Update example code to contain texual information.
-- [ ] Add support to create single unit form with simpler schema.
-- [ ] Refractor: "Nested" can give wrong idea, rename it to something else.
+const App = () => {
+  const [value, setValue] = useState({})
+  const schema = DynamicForm.schema({
+    Name: 'John Doe',
+    Age: Number
+  })
+
+  return (
+    <DynamicForm.Form
+      schema={schema}
+      onChange={(newValue) => setValue(newValue)}
+      onSubmit={(newValue) => setValue(newValue)}
+    />
+  )
+}
+```
+
+## `DynamicForm.Form`
+
+The core component that will render a form for a given schema.
+
+| Props    | Type     | Note                                                                            |
+| -------- | -------- | ------------------------------------------------------------------------------- |
+| Schema   | Object   | Schema object parsed by `DynamicForm.schema`                                    |
+| onChange | Function | Function that will be executed with changed value when value in form is changes |
+| onSubmit | Function | Function that will be executed with final value when submit button is pressed   |
+
+## `DynamicForm.type`
+
+Available form types. This will also control how value will be returned through `onChange` and `onUpdate`.
+
+TODO: Update notes with nature of types.
+
+| Form Types | Note                                           |
+| ---------- | ---------------------------------------------- |
+| text       | String form that will return `String` value    |
+| number     | Number form that will return `Number` value    |
+| nested     | Nested form that will return `Object` value    |
+| repeatable | Repeatable form that will return `Array` value |
+
+## `DynamicForm.schema`
+
+The function parses minimal schema and converts it into an expanded schema that is understandable by `DynamicForm.Form`. \
+For minimal schema, the developer given label will be used as a key to store value for the form. For expanded schema, the developer key will be used as a key to store value for the form. \
+Example of schema:
+
+```js
+// Minimal schema
+const schema = {
+  Name: 'John Doe'
+}
+
+// Convert minimal, expanded or mixed schema to expanded schema
+let expandedSchema = DynamicForm.schema(schema)
+
+// expaded schema for given minimal schema will look like this
+expandedSchema = {
+  Name: {
+    type: 'DynamicFormType.Text',
+    label: 'Name',
+    defaultValue: 'John Doe'
+  }
+}
+```
+
+See [examples](https://rational-kunal.github.io/dynamic-form) to see schemas is action.
+
+### String schema
+
+```js
+// Use this if you just want to create form on the fly.
+const stringSchema = {
+  '<label>': String || '<Default Value>'
+}
+
+// Fine tune some of the aspects.
+const stringSchema = {
+  '<key>': {
+    label: '<label>',
+    type: DynamicFormType.text,
+    placeholder: '<placeholder>', // Optional
+    defaultValue: '' // Optional
+  }
+}
+```
+
+### Number schema
+
+```js
+// Use this if you just want to create form on the fly.
+const numberSchema = {
+  '<label>': Number || '<Default Value>'
+}
+
+// Fine tune some of the aspects.
+const stringSchema = {
+  '<key>': {
+    label: '<label>',
+    type: DynamicFormType.number,
+    placeholder: '<placeholder>', // Optional
+    defaultValue: '' // Optional
+  }
+}
+```
+
+### Nested schema
+
+```js
+// Use this if you just want to create form on the fly.
+const nestedSchema = {
+  '<label>': { ... }
+}
+
+// Fine tune some of the aspects.
+const nestedSchema = {
+  '<key>': {
+    label: '<label>',
+    type: DynamicFormType.nested,
+    schema: { ... }
+  }
+}
+```
+
+### Repeated schema
+
+```js
+// Use this if you just want to create form on the fly.
+const repeatedSchema = {
+  '<label>': [{ ... }]
+}
+
+// Fine tune some of the aspects.
+const repeatedSchema = {
+  '<key>': {
+    type: DynamicFormType.repeatable,
+    schema: { ... }
+  }
+}
+```
 
 ## License
 
-MIT © [lets-rotate](https://github.com/lets-rotate)
+MIT © [rational-kunal](https://github.com/rational-kunal)
