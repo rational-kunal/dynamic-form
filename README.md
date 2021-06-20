@@ -1,8 +1,12 @@
-NOTE: 🚧 Documentaion is in progress 🚧
-
 # dynamic-form
 
 Statefull forms on the fly.
+
+![npm](https://img.shields.io/npm/v/@rational-kunal/dynamic-form?logo=NPM&style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/rational-kunal/dynamic-form/Node.js%20CI?logo=GitHub&style=for-the-badge)
+![npm](https://img.shields.io/npm/dt/@rational-kunal/dynamic-form?logo=NPM&style=for-the-badge)
+![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/rational-kunal/dynamic-form/latest?style=for-the-badge&logo=Git)
+![Twitter Follow](https://img.shields.io/twitter/follow/rational_kunal?logo=twitter&style=for-the-badge)
 
 ## Install
 
