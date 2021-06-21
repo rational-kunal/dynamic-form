@@ -2,62 +2,63 @@
 import { schema } from './schema'
 import { DynamicFormType } from './type'
 
-test('Single expanded string form schema', () => {
+// TODO: refractor form -> schema || form schema.
+test('Expanded string form returns expanded form', () => {
   const stringForm = {
-    formKey: {
+    key: {
       label: 'Name',
       type: DynamicFormType.text,
       placeholder: 'John Doe',
-      defaultValue: 'defaultValue'
+      defaultValue: 'Default Name'
     }
   }
 
-  const expectedStringForm = {
-    formKey: {
+  const expectedExpandedForm = {
+    key: {
       label: 'Name',
       type: DynamicFormType.text,
       placeholder: 'John Doe',
-      defaultValue: 'defaultValue'
+      defaultValue: 'Default Name'
     }
   }
 
-  expect(schema(stringForm)).toMatchObject(expectedStringForm)
+  expect(schema(stringForm)).toMatchObject(expectedExpandedForm)
 })
 
-test('Single minimal string form with default value schema', () => {
+test('Minimal string form with default value returns expanded form', () => {
   const stringForm = {
-    Name: 'defaultValue'
+    Name: 'Default Name'
   }
 
-  const expectedForm = {
+  const expectedExpandedForm = {
     Name: {
       label: 'Name',
       type: DynamicFormType.text,
-      defaultValue: 'defaultValue'
+      defaultValue: 'Default Name'
     }
   }
 
-  expect(schema(stringForm)).toMatchObject(expectedForm)
+  expect(schema(stringForm)).toMatchObject(expectedExpandedForm)
 })
 
-test('Single minimal string form without default value schema', () => {
+test('Minimal string form without default value returns expanded form', () => {
   const stringForm = {
     Name: String
   }
 
-  const expectedForm = {
+  const expectedExpandedForm = {
     Name: {
       label: 'Name',
       type: DynamicFormType.text
     }
   }
 
-  expect(schema(stringForm)).toMatchObject(expectedForm)
+  expect(schema(stringForm)).toMatchObject(expectedExpandedForm)
 })
 
-test('Single expanded number form schema', () => {
+test('Expanded number form returns expanded form', () => {
   const numberForm = {
-    formKey: {
+    key: {
       label: 'Age',
       type: DynamicFormType.number,
       placeholder: 'Age',
@@ -65,8 +66,8 @@ test('Single expanded number form schema', () => {
     }
   }
 
-  const expectedNumberForm = {
-    formKey: {
+  const expectedExpandedForm = {
+    key: {
       label: 'Age',
       type: DynamicFormType.number,
       placeholder: 'Age',
@@ -74,15 +75,15 @@ test('Single expanded number form schema', () => {
     }
   }
 
-  expect(schema(numberForm)).toMatchObject(expectedNumberForm)
+  expect(schema(numberForm)).toMatchObject(expectedExpandedForm)
 })
 
-test('Single minimal number form with default value schema', () => {
+test('Minimal number form with default value returns expanded form', () => {
   const numberForm = {
     Age: 21
   }
 
-  const expectedNumberForm = {
+  const expectedExpandedForm = {
     Age: {
       label: 'Age',
       type: DynamicFormType.number,
@@ -90,244 +91,250 @@ test('Single minimal number form with default value schema', () => {
     }
   }
 
-  expect(schema(numberForm)).toMatchObject(expectedNumberForm)
+  expect(schema(numberForm)).toMatchObject(expectedExpandedForm)
 })
 
-test('Single minimal number form without default value schema', () => {
+test('Minimal number form without default value returns expanded form', () => {
   const numberForm = {
     Age: Number
   }
 
-  const expectedNumberForm = {
+  const expectedExpandedForm = {
     Age: {
       label: 'Age',
       type: DynamicFormType.number
     }
   }
 
-  expect(schema(numberForm)).toMatchObject(expectedNumberForm)
+  expect(schema(numberForm)).toMatchObject(expectedExpandedForm)
 })
 
-test('Single expanded nested form with expanded sub form schema', () => {
-  const stringSubForm = {
+test('Expanded nested form containing expanded sub-form returns recursively expanded form', () => {
+  const nestedForm = {
     formKey: {
-      label: 'Name',
-      type: DynamicFormType.text,
-      placeholder: 'John Doe',
-      defaultValue: 'defaultValue'
-    }
-  }
-
-  const nestedExpandedForm = {
-    formKey: {
-      label: 'Nested form',
+      label: 'Personal Information',
       type: DynamicFormType.nested,
-      schema: { ...stringSubForm }
-    }
-  }
-
-  const expectedNestedForm = {
-    formKey: {
-      label: 'Nested form',
-      type: DynamicFormType.nested,
-      schema: { ...stringSubForm }
-    }
-  }
-
-  expect(schema(nestedExpandedForm)).toMatchObject(expectedNestedForm)
-})
-
-test('Single expanded nested form with minimal sub form schema', () => {
-  const stringSubForm = {
-    'Nested sub string form': {
-      label: 'Nested sub string form',
-      type: DynamicFormType.text,
-      defaultValue: 'defaultValue'
-    }
-  }
-
-  const nestedExpandedForm = {
-    formKey: {
-      label: 'Nested form',
-      type: DynamicFormType.nested,
-      schema: { 'Nested sub string form': 'defaultValue' }
-    }
-  }
-
-  const expectedNestedForm = {
-    formKey: {
-      label: 'Nested form',
-      type: DynamicFormType.nested,
-      schema: { ...stringSubForm }
-    }
-  }
-
-  expect(schema(nestedExpandedForm)).toMatchObject(expectedNestedForm)
-})
-
-test('Single minimal nested form with expanded sub form schema', () => {
-  const stringSubForm = {
-    'Nested sub string form': {
-      label: 'Nested sub string form',
-      type: DynamicFormType.text,
-      defaultValue: 'defaultValue'
-    }
-  }
-
-  const nestedExpandedForm = {
-    'Nested Form Label': { ...stringSubForm }
-  }
-
-  const expectedNestedForm = {
-    'Nested Form Label': {
-      label: 'Nested Form Label',
-      type: DynamicFormType.nested,
-      schema: { ...stringSubForm }
-    }
-  }
-
-  expect(schema(nestedExpandedForm)).toMatchObject(expectedNestedForm)
-})
-
-test('Single minimal nested form with minimal sub form schema', () => {
-  const stringSubForm = {
-    'Nested sub string form': {
-      label: 'Nested sub string form',
-      type: DynamicFormType.text,
-      defaultValue: 'defaultValue'
-    }
-  }
-
-  const nestedExpandedForm = {
-    'Nested Form Label': { 'Nested sub string form': 'defaultValue' }
-  }
-
-  const expectedNestedForm = {
-    'Nested Form Label': {
-      label: 'Nested Form Label',
-      type: DynamicFormType.nested,
-      schema: { ...stringSubForm }
-    }
-  }
-
-  expect(schema(nestedExpandedForm)).toMatchObject(expectedNestedForm)
-})
-
-test('Single expanded repeated form with expanded sub form schema', () => {
-  const numberSubForm = {
-    Age: {
-      label: 'Age',
-      type: DynamicFormType.number,
-      placeholder: 'Age',
-      defaultValue: 0
-    }
-  }
-
-  const reapeatedExpandedForm = {
-    formKey: {
-      label: 'Reapeated form',
-      type: DynamicFormType.repeatable,
-      schema: { ...numberSubForm }
-    }
-  }
-
-  const expectedReapeatedForm = {
-    formKey: {
-      label: 'Reapeated form',
-      type: DynamicFormType.repeatable,
-      schema: { ...numberSubForm }
-    }
-  }
-
-  expect(schema(reapeatedExpandedForm)).toMatchObject(expectedReapeatedForm)
-})
-
-test('Single expanded repeated form with minimal sub form schema', () => {
-  const numberSubForm = {
-    Age: {
-      label: 'Age',
-      type: DynamicFormType.number
-    }
-  }
-
-  const reapeatedExpandedForm = {
-    formKey: {
-      type: DynamicFormType.repeatable,
-      schema: { Age: Number }
-    }
-  }
-
-  const expectedReapeatedForm = {
-    formKey: {
-      type: DynamicFormType.repeatable,
-      schema: { ...numberSubForm }
-    }
-  }
-
-  expect(schema(reapeatedExpandedForm)).toMatchObject(expectedReapeatedForm)
-})
-
-test('Single minimal reapeated form with expanded sub form schema', () => {
-  const numberSubForm = {
-    Age: {
-      label: 'Age',
-      type: DynamicFormType.number,
-      placeholder: 'Age',
-      defaultValue: 0
-    }
-  }
-
-  const reapeatedExpandedForm = {
-    'Repeated Form': [{ ...numberSubForm }]
-  }
-
-  const expectedReapeatedForm = {
-    'Repeated Form': {
-      label: 'Repeated Form',
-      type: DynamicFormType.repeatable,
-      schema: { ...numberSubForm }
-    }
-  }
-
-  expect(schema(reapeatedExpandedForm)).toMatchObject(expectedReapeatedForm)
-})
-
-test('Single minimal repeated form with minimal sub form schema', () => {
-  const numberSubForm = {
-    Age: {
-      label: 'Age',
-      type: DynamicFormType.number
-    }
-  }
-
-  const reapeatedExpandedForm = {
-    'Repeated Form': [{ Age: Number }]
-  }
-
-  const expectedReapeatedForm = {
-    'Repeated Form': {
-      label: 'Repeated Form',
-      type: DynamicFormType.repeatable,
-      schema: { ...numberSubForm }
-    }
-  }
-
-  expect(schema(reapeatedExpandedForm)).toMatchObject(expectedReapeatedForm)
-})
-
-test('Single minimial repeated form with minimal nested form', () => {
-  expect(
-    schema({
-      'Reapeated Form': [
-        {
-          'Nested Form': {
-            stringy: 'stringy',
-            numbery: Number
-          }
+      schema: {
+        key: {
+          label: 'Name',
+          type: DynamicFormType.text,
+          placeholder: 'John Doe',
+          defaultValue: 'Default Name'
         }
-      ]
-    })
-  ).toMatchObject({
+      }
+    }
+  }
+
+  const expectedExpandedForm = {
+    formKey: {
+      label: 'Personal Information',
+      type: DynamicFormType.nested,
+      schema: {
+        key: {
+          label: 'Name',
+          type: DynamicFormType.text,
+          placeholder: 'John Doe',
+          defaultValue: 'Default Name'
+        }
+      }
+    }
+  }
+
+  expect(schema(nestedForm)).toMatchObject(expectedExpandedForm)
+})
+
+test('Expanded nested form containing minimal sub-form returns recursively expanded form', () => {
+  const nestedForm = {
+    key: {
+      label: 'Personal Information',
+      type: DynamicFormType.nested,
+      schema: { Name: 'Default Name' }
+    }
+  }
+
+  const expectedExpandedForm = {
+    key: {
+      label: 'Personal Information',
+      type: DynamicFormType.nested,
+      schema: {
+        Name: {
+          label: 'Name',
+          type: DynamicFormType.text,
+          defaultValue: 'Default Name'
+        }
+      }
+    }
+  }
+
+  expect(schema(nestedForm)).toMatchObject(expectedExpandedForm)
+})
+
+test('Minimal nested form containing expanded sub-form returns recursively expanded form', () => {
+  const nestedForm = {
+    'Personal Information': {
+      Name: {
+        label: 'Name',
+        type: DynamicFormType.text,
+        defaultValue: 'Default Name'
+      }
+    }
+  }
+
+  const expectedExpandedForm = {
+    'Personal Information': {
+      label: 'Personal Information',
+      type: DynamicFormType.nested,
+      schema: {
+        Name: {
+          label: 'Name',
+          type: DynamicFormType.text,
+          defaultValue: 'Default Name'
+        }
+      }
+    }
+  }
+
+  expect(schema(nestedForm)).toMatchObject(expectedExpandedForm)
+})
+
+test('Minimal nested form containing minimal sub-form returns recursively expanded form', () => {
+  const nestedForm = {
+    'Personal Information': { Name: 'Default Name' }
+  }
+
+  const expectedExpandedForm = {
+    'Personal Information': {
+      label: 'Personal Information',
+      type: DynamicFormType.nested,
+      schema: {
+        Name: {
+          label: 'Name',
+          type: DynamicFormType.text,
+          defaultValue: 'Default Name'
+        }
+      }
+    }
+  }
+
+  expect(schema(nestedForm)).toMatchObject(expectedExpandedForm)
+})
+
+test('Expanded repeatable form containing expanded sub-form returns recursively exapnded form', () => {
+  const reapeatableForm = {
+    key: {
+      label: 'Users',
+      type: DynamicFormType.repeatable,
+      schema: {
+        phoneNumber: {
+          label: 'Phone Number',
+          type: DynamicFormType.number
+        }
+      }
+    }
+  }
+
+  const expectedExpandedForm = {
+    key: {
+      label: 'Users',
+      type: DynamicFormType.repeatable,
+      schema: {
+        phoneNumber: {
+          label: 'Phone Number',
+          type: DynamicFormType.number
+        }
+      }
+    }
+  }
+
+  expect(schema(reapeatableForm)).toMatchObject(expectedExpandedForm)
+})
+
+test('Expanded repeatable form containing minimal sub-form returns recursively exapnded form', () => {
+  const reapeatableForm = {
+    Users: {
+      type: DynamicFormType.repeatable,
+      schema: { 'Phone Number': Number }
+    }
+  }
+
+  const expectedExpandedForm = {
+    Users: {
+      label: 'Users',
+      type: DynamicFormType.repeatable,
+      schema: {
+        'Phone Number': {
+          label: 'Phone Number',
+          type: DynamicFormType.number
+        }
+      }
+    }
+  }
+
+  expect(schema(reapeatableForm)).toMatchObject(expectedExpandedForm)
+})
+
+test('Minimal repeatable form containing expanded sub-form returns recursively exapnded form', () => {
+  const reapeatableForm = {
+    'Repeated Form': [
+      {
+        'Phone Number': {
+          label: 'Phone Number',
+          type: DynamicFormType.number
+        }
+      }
+    ]
+  }
+
+  const expectedExpandedForm = {
+    'Repeated Form': {
+      label: 'Repeated Form',
+      type: DynamicFormType.repeatable,
+      schema: {
+        'Phone Number': {
+          label: 'Phone Number',
+          type: DynamicFormType.number
+        }
+      }
+    }
+  }
+
+  expect(schema(reapeatableForm)).toMatchObject(expectedExpandedForm)
+})
+
+test('Minimal repeatable form containing minimal sub-form returns recursively exapnded form', () => {
+  const reapeatableForm = {
+    Users: [{ 'Phone Number': Number }]
+  }
+
+  const expectedExpandedForm = {
+    Users: {
+      label: 'Users',
+      type: DynamicFormType.repeatable,
+      schema: {
+        'Phone Number': {
+          label: 'Phone Number',
+          type: DynamicFormType.number
+        }
+      }
+    }
+  }
+
+  expect(schema(reapeatableForm)).toMatchObject(expectedExpandedForm)
+})
+
+test('Minimal repeatable form containing minimal nested sub-form returns recursively exapnded form', () => {
+  const minimalForm = {
+    'Reapeated Form': [
+      {
+        'Nested Form': {
+          stringy: 'stringy',
+          numbery: Number
+        }
+      }
+    ]
+  }
+
+  const expectedExpandedForm = {
     'Reapeated Form': {
       label: 'Reapeated Form',
       type: DynamicFormType.repeatable,
@@ -349,22 +356,24 @@ test('Single minimial repeated form with minimal nested form', () => {
         }
       }
     }
-  })
+  }
+
+  expect(schema(minimalForm)).toMatchObject(expectedExpandedForm)
 })
 
-test('Single minimial nested form with minimal reapeated form', () => {
-  expect(
-    schema({
-      'Nested Form': {
-        'Reapeated Form': [
-          {
-            stringy: String,
-            numbery: 0
-          }
-        ]
-      }
-    })
-  ).toMatchObject({
+test('Minimal nested form containing minimal repeatable sub-form returns recursively exapnded form', () => {
+  const minimalForm = {
+    'Nested Form': {
+      'Reapeated Form': [
+        {
+          stringy: String,
+          numbery: 0
+        }
+      ]
+    }
+  }
+
+  const expectedExpandedForm = {
     'Nested Form': {
       label: 'Nested Form',
       type: DynamicFormType.nested,
@@ -386,5 +395,7 @@ test('Single minimial nested form with minimal reapeated form', () => {
         }
       }
     }
-  })
+  }
+
+  expect(schema(minimalForm)).toMatchObject(expectedExpandedForm)
 })
