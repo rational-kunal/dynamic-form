@@ -3,10 +3,10 @@ import React from 'react'
 import { NodeForm } from './NodeForm'
 import util from '../util'
 
-export const NestedForm = ({ schema, onChange = () => {} }) => {
-  const changeValue = (newValue) => {
+const _NestedForm = ({ schema, atKey = null, onChange = () => {} }) => {
+  const changeValue = ({ newValue }) => {
     if (util.isFunction(onChange)) {
-      onChange(newValue)
+      onChange({ newValue, key: atKey })
     }
   }
 
@@ -20,3 +20,4 @@ export const NestedForm = ({ schema, onChange = () => {} }) => {
     </div>
   )
 }
+export const NestedForm = React.memo(_NestedForm)

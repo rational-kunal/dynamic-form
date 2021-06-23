@@ -7,7 +7,7 @@ import util from '../util'
 export const DynamicForm = ({ schema = {}, onChange = () => {}, onSubmit }) => {
   // Value container to store values.
   const valueContainer = useRef({})
-  const changeValue = (newValue) => {
+  const changeValue = ({ newValue }) => {
     valueContainer.current = newValue
 
     // Update out function that value is changed.
@@ -34,12 +34,7 @@ export const DynamicForm = ({ schema = {}, onChange = () => {}, onSubmit }) => {
 
   return (
     <div className='d-grid gap-1'>
-      <NodeForm
-        schema={schema}
-        onChange={(newValue) => {
-          changeValue(newValue)
-        }}
-      />
+      <NodeForm schema={schema} onChange={changeValue} />
       {submitButton}
     </div>
   )
