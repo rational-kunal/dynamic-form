@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useCallback, useRef } from 'react'
 
 import { DynamicFormType } from '../Schema'
 import { StringForm, NumberForm } from './TextyForm'
@@ -7,20 +7,20 @@ import { NestedForm } from './NestedForm'
 import util from '../util'
 
 // TODO: On hover add border
-export const NodeForm = ({ schema, onChange = () => {}, onDelete }) => {
+const _NodeForm = ({ schema, atKey = null, onChange = () => {}, onDelete }) => {
   // Value container to store values.
   const valueContainer = useRef({})
   // Constant key prefix for children.
   const keyPrefixContainer = useRef(util.uniqueKey())
   const keyPrefix = keyPrefixContainer.current
 
-  const changeValue = (key, newValueForKey) => {
+  const changeValue = useCallback(({ key, newValue }) => {
     const value = valueContainer.current
-    value[key] = newValueForKey
+    value[key] = newValue
     if (util.isFunction(onChange)) {
-      onChange({ ...value })
+      onChange({ newValue: { ...value }, key: atKey })
     }
-  }
+  }, [])
 
   // Iterate through schema and get each form type.
   const forms = []
@@ -39,10 +39,9 @@ export const NodeForm = ({ schema, onChange = () => {}, onDelete }) => {
     forms.push(
       <Form
         key={keyPrefix + key}
+        atKey={key}
         schema={schemaForKey}
-        onChange={(newValueForKey) => {
-          changeValue(key, newValueForKey)
-        }}
+        onChange={changeValue}
       />
     )
   }
@@ -54,7 +53,7 @@ export const NodeForm = ({ schema, onChange = () => {}, onDelete }) => {
         <button
           className='btn btn-outline-danger w-20'
           onClick={() => {
-            onDelete()
+            onDelete({ key: atKey })
           }}
         >
           Delete
@@ -72,3 +71,5 @@ export const NodeForm = ({ schema, onChange = () => {}, onDelete }) => {
     </div>
   )
 }
+
+export const NodeForm = React.memo(_NodeForm)

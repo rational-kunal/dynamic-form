@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useCallback } from 'react'
 
 import { NodeForm } from './NodeForm'
 import util from '../util'
 
 let keyIndex = 0
-export const ReapeatableForm = ({ schema, onChange = () => {} }) => {
+const _ReapeatableForm = ({ schema, atKey = null, onChange = () => {} }) => {
   const [forms, setForms] = useState([])
   // Value container to store values.
   const valueContainer = useRef({})
@@ -12,23 +12,21 @@ export const ReapeatableForm = ({ schema, onChange = () => {} }) => {
   const keyPrefixContainer = useRef(util.uniqueKey())
   const keyPrefix = keyPrefixContainer.current
 
-  const deleteFormWithKey = (key) => {
+  // Changes value for given key in `valueContainer` and passes the information to parent
+  const changeValueForKey = useCallback(({ key, newValue }) => {
+    valueContainer.current[key] = newValue
+    onChange({ key: atKey, newValue: Object.values(valueContainer.current) })
+  }, [])
+
+  // Removes value for given key in `valueContainer` and passes the information to parent. Removes reference to associated component as well.
+  const removeFormWithValueForKey = useCallback(({ key }) => {
+    delete valueContainer.current[key]
+    onChange({ key: atKey, newValue: Object.values(valueContainer.current) })
+
     setForms((oldForms) => {
       return oldForms.filter((x) => x.key !== key)
     })
-  }
-
-  // Changes value for given key in `valueContainer` and passes the information to parent
-  const changeValueForKey = (key, newValue) => {
-    valueContainer.current[key] = newValue
-    onChange(Object.values(valueContainer.current))
-  }
-
-  // Removes value for given key in `valueContainer` and passes the information to parent
-  const removeValueForKey = (key) => {
-    delete valueContainer.current[key]
-    onChange(Object.values(valueContainer.current))
-  }
+  }, [])
 
   const addForm = () => {
     const newKey = `${keyPrefix + schema.label}_${keyIndex++}`
@@ -36,14 +34,10 @@ export const ReapeatableForm = ({ schema, onChange = () => {} }) => {
       ...forms,
       <NodeForm
         key={newKey}
+        atKey={newKey}
         schema={schema.schema}
-        onChange={(newValue) => {
-          changeValueForKey(newKey, newValue)
-        }}
-        onDelete={() => {
-          removeValueForKey(newKey)
-          deleteFormWithKey(newKey)
-        }}
+        onChange={changeValueForKey}
+        onDelete={removeFormWithValueForKey}
       />
     ])
   }
@@ -68,3 +62,5 @@ export const ReapeatableForm = ({ schema, onChange = () => {} }) => {
     </div>
   )
 }
+
+export const ReapeatableForm = React.memo(_ReapeatableForm)

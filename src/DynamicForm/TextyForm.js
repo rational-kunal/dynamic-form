@@ -5,27 +5,33 @@ const TextyFormType = {
   number: 'TextyFormType.number'
 }
 
-export const StringForm = ({ schema, onChange = () => {} }) => {
-  return (
-    <TextyForm type={TextyFormType.text} schema={schema} onChange={onChange} />
-  )
-}
-
-export const NumberForm = ({ schema, onChange = () => {} }) => {
+export const StringForm = ({ schema, atKey = null, onChange = () => {} }) => {
   return (
     <TextyForm
-      type={TextyFormType.number}
+      type={TextyFormType.text}
       schema={schema}
+      atKey={atKey}
       onChange={onChange}
     />
   )
 }
 
-const TextyForm = ({ type, schema, onChange = () => {} }) => {
+export const NumberForm = ({ schema, atKey = null, onChange = () => {} }) => {
+  return (
+    <TextyForm
+      type={TextyFormType.number}
+      schema={schema}
+      atKey={atKey}
+      onChange={onChange}
+    />
+  )
+}
+
+const TextyForm = ({ type, schema, atKey = null, onChange = () => {} }) => {
   // If default value is not availble then use empty string as default value so html will not throw error later.
   const [value, setValue] = useState(() => {
     if (schema.defaultValue !== undefined) {
-      onChange(schema.defaultValue)
+      onChange({ newValue: schema.defaultValue, key: atKey })
       return schema.defaultValue
     } else {
       return ''
@@ -36,7 +42,8 @@ const TextyForm = ({ type, schema, onChange = () => {} }) => {
     const parsedValue =
       type === TextyFormType.number ? parseInt(newValue) : newValue
     setValue(parsedValue)
-    if (parsedValue !== undefined) onChange(parsedValue)
+    if (parsedValue !== undefined)
+      onChange({ newValue: parsedValue, key: atKey })
   }
 
   return (
