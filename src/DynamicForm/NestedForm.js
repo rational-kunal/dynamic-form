@@ -1,13 +1,11 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import { NodeForm } from './NodeForm'
-import util from '../util'
 
-const _NestedForm = ({ schema, atKey = null, onChange = () => {} }) => {
+const _NestedForm = ({ schema, atKey = null, onChange }) => {
   const changeValue = ({ newValue }) => {
-    if (util.isFunction(onChange)) {
-      onChange({ newValue, key: atKey })
-    }
+    onChange({ newValue, key: atKey })
   }
 
   // TODO: Add icon to delete button
@@ -20,4 +18,11 @@ const _NestedForm = ({ schema, atKey = null, onChange = () => {} }) => {
     </div>
   )
 }
+
+_NestedForm.propTypes = {
+  schema: PropTypes.object.isRequired,
+  atKey: PropTypes.string,
+  onChange: PropTypes.func.isRequired
+}
+
 export const NestedForm = React.memo(_NestedForm)

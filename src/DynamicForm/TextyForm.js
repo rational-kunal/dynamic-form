@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
 const TextyFormType = {
   text: 'TextyFormType.text',
   number: 'TextyFormType.number'
 }
 
-export const StringForm = ({ schema, atKey = null, onChange = () => {} }) => {
+export const StringForm = ({ schema, atKey = null, onChange }) => {
   return (
     <TextyForm
       type={TextyFormType.text}
@@ -16,7 +17,7 @@ export const StringForm = ({ schema, atKey = null, onChange = () => {} }) => {
   )
 }
 
-export const NumberForm = ({ schema, atKey = null, onChange = () => {} }) => {
+export const NumberForm = ({ schema, atKey = null, onChange }) => {
   return (
     <TextyForm
       type={TextyFormType.number}
@@ -27,7 +28,7 @@ export const NumberForm = ({ schema, atKey = null, onChange = () => {} }) => {
   )
 }
 
-const TextyForm = ({ type, schema, atKey = null, onChange = () => {} }) => {
+const TextyForm = ({ type, schema, atKey = null, onChange }) => {
   // If default value is not availble then use empty string as default value so html will not throw error later.
   const [value, setValue] = useState(() => {
     if (schema.defaultValue !== undefined) {
@@ -58,4 +59,23 @@ const TextyForm = ({ type, schema, atKey = null, onChange = () => {} }) => {
       />
     </div>
   )
+}
+
+StringForm.propTypes = {
+  schema: PropTypes.object.isRequired,
+  atKey: PropTypes.string,
+  onChange: PropTypes.func.isRequired
+}
+
+NumberForm.propTypes = {
+  schema: PropTypes.object.isRequired,
+  atKey: PropTypes.string,
+  onChange: PropTypes.func.isRequired
+}
+
+TextyFormType.propTypes = {
+  schema: PropTypes.object.isRequired,
+  type: PropTypes.string.isRequired,
+  atKey: PropTypes.string,
+  onChange: PropTypes.func.isRequired
 }

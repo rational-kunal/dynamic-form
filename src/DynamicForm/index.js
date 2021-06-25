@@ -1,10 +1,11 @@
 import React, { useRef } from 'react'
+import PropTypes from 'prop-types'
 
 import { NodeForm } from './NodeForm'
 import util from '../util'
 
 // TODO: Add test for keys with large schema.
-export const DynamicForm = ({ schema = {}, onChange = () => {}, onSubmit }) => {
+export const DynamicForm = ({ schema, onChange = () => {}, onSubmit }) => {
   // Value container to store values.
   const valueContainer = useRef({})
   const changeValue = ({ newValue }) => {
@@ -38,4 +39,10 @@ export const DynamicForm = ({ schema = {}, onChange = () => {}, onSubmit }) => {
       {submitButton}
     </div>
   )
+}
+
+DynamicForm.propTypes = {
+  schema: PropTypes.object.isRequired,
+  onChange: PropTypes.func,
+  onSubmit: PropTypes.func
 }

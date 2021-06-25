@@ -1,10 +1,11 @@
 import React, { useState, useRef, useCallback } from 'react'
+import PropTypes from 'prop-types'
 
 import { NodeForm } from './NodeForm'
 import util from '../util'
 
 let keyIndex = 0
-const _ReapeatableForm = ({ schema, atKey = null, onChange = () => {} }) => {
+const _ReapeatableForm = ({ schema, atKey = null, onChange }) => {
   const [forms, setForms] = useState([])
   // Value container to store values.
   const valueContainer = useRef({})
@@ -61,6 +62,12 @@ const _ReapeatableForm = ({ schema, atKey = null, onChange = () => {} }) => {
       </div>
     </div>
   )
+}
+
+_ReapeatableForm.propTypes = {
+  schema: PropTypes.object.isRequired,
+  atKey: PropTypes.string,
+  onChange: PropTypes.func.isRequired
 }
 
 export const ReapeatableForm = React.memo(_ReapeatableForm)
