@@ -51,6 +51,7 @@
     "dist"
   ],
   "dependencies": {
-    "@types/jest": "^26.0.23"
+    "@types/jest": "^26.0.23",
+    "prop-types": "^15.7.2"
   }
 }

@@ -1,4 +1,5 @@
 import React, { useCallback, useRef } from 'react'
+import PropTypes from 'prop-types'
 
 import { DynamicFormType } from '../Schema'
 import { StringForm, NumberForm } from './TextyForm'
@@ -17,9 +18,8 @@ const _NodeForm = ({ schema, atKey = null, onChange = () => {}, onDelete }) => {
   const changeValue = useCallback(({ key, newValue }) => {
     const value = valueContainer.current
     value[key] = newValue
-    if (util.isFunction(onChange)) {
-      onChange({ newValue: { ...value }, key: atKey })
-    }
+
+    onChange({ newValue: { ...value }, key: atKey })
   }, [])
 
   // Iterate through schema and get each form type.
@@ -49,16 +49,12 @@ const _NodeForm = ({ schema, atKey = null, onChange = () => {}, onDelete }) => {
   let deleteButton
   if (util.isFunction(onDelete)) {
     deleteButton = (
-      <div className=''>
-        <button
-          className='btn btn-outline-danger w-20'
-          onClick={() => {
-            onDelete({ key: atKey })
-          }}
-        >
-          Delete
-        </button>
-      </div>
+      <button
+        className='btn btn-outline-danger w-20'
+        onClick={() => onDelete({ key: atKey })}
+      >
+        Delete
+      </button>
     )
   }
 
@@ -70,6 +66,13 @@ const _NodeForm = ({ schema, atKey = null, onChange = () => {}, onDelete }) => {
       </div>
     </div>
   )
+}
+
+_NodeForm.propTypes = {
+  schema: PropTypes.object.isRequired,
+  atKey: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  onDelete: PropTypes.func
 }
 
 export const NodeForm = React.memo(_NodeForm)
