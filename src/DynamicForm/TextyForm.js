@@ -6,6 +6,12 @@ const TextyFormType = {
   number: 'TextyFormType.number'
 }
 
+const INPUT_TYPE_STRING = 'text'
+const INPUT_TYPE_NUMBER = 'number'
+
+const ROLE_INPUT_STRING = 'role-input-string'
+const ROLE_INPUT_NUMBER = 'role-input-number'
+
 export const StringForm = ({ schema, atKey = null, onChange }) => {
   return (
     <TextyForm
@@ -29,7 +35,7 @@ export const NumberForm = ({ schema, atKey = null, onChange }) => {
 }
 
 const TextyForm = ({ type, schema, atKey = null, onChange }) => {
-  // If default value is not availble then use empty string as default value so html will not throw error later.
+  // If default value is not available then use empty string as default value so html will not throw error later.
   const [value, setValue] = useState(() => {
     if (schema.defaultValue !== undefined) {
       onChange({ newValue: schema.defaultValue, key: atKey })
@@ -47,11 +53,18 @@ const TextyForm = ({ type, schema, atKey = null, onChange }) => {
       onChange({ newValue: parsedValue, key: atKey })
   }
 
+  const formType =
+    type === TextyFormType.text ? INPUT_TYPE_STRING : INPUT_TYPE_NUMBER
+
+  const inputType =
+    type === TextyFormType.text ? ROLE_INPUT_STRING : ROLE_INPUT_NUMBER
+
   return (
     <div className='input-group flex-nowrap'>
       <span className='input-group-text'> {schema.label} </span>
       <input
-        type={type === TextyFormType.text ? 'text' : 'number'}
+        type={formType}
+        role={inputType}
         className='form-control'
         placeholder={schema.placeholder}
         value={value}
