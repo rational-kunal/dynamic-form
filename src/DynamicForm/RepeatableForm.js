@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 import { NodeForm } from './NodeForm'
 import util from '../util'
 
+const ROLE_ADD_FORM = 'role-add-form'
+
 let keyIndex = 0
 const _ReapeatableForm = ({ schema, atKey = null, onChange }) => {
   const [forms, setForms] = useState([])
@@ -52,6 +54,7 @@ const _ReapeatableForm = ({ schema, atKey = null, onChange }) => {
         <div className='d-grid'>
           <button
             className='btn btn-outline-secondary mx-1 w-auto'
+            role={ROLE_ADD_FORM}
             onClick={() => {
               addForm()
             }}

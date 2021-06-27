@@ -7,6 +7,10 @@ import { ReapeatableForm } from './RepeatableForm'
 import { NestedForm } from './NestedForm'
 import util from '../util'
 
+const ROLE_COMPONENT_NODE = 'component-node'
+const ROLE_INPUT_NODE_DELETE = 'input-node-delete'
+
+// TODO: Add tests
 // TODO: On hover add border
 const _NodeForm = ({ schema, atKey = null, onChange = () => {}, onDelete }) => {
   // Value container to store values.
@@ -51,6 +55,7 @@ const _NodeForm = ({ schema, atKey = null, onChange = () => {}, onDelete }) => {
     deleteButton = (
       <button
         className='btn btn-outline-danger w-20'
+        role={ROLE_INPUT_NODE_DELETE}
         onClick={() => onDelete({ key: atKey })}
       >
         Delete
@@ -59,7 +64,7 @@ const _NodeForm = ({ schema, atKey = null, onChange = () => {}, onDelete }) => {
   }
 
   return (
-    <div className='card border-light'>
+    <div role={ROLE_COMPONENT_NODE} className='card border-light'>
       <div className='card-body p-1 d-grid gap-1'>
         {forms}
         {deleteButton}

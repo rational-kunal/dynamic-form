@@ -4,6 +4,9 @@ import PropTypes from 'prop-types'
 import { NodeForm } from './NodeForm'
 import util from '../util'
 
+const ROLE_INPUT_DYNAMIC_SUBMIT = 'input-dynamic-submit'
+
+// TODO: Add overall end to end test for all types of form
 // TODO: Add test for keys with large schema.
 export const DynamicForm = ({ schema, onChange = () => {}, onSubmit }) => {
   // Value container to store values.
@@ -24,6 +27,7 @@ export const DynamicForm = ({ schema, onChange = () => {}, onSubmit }) => {
     submitButton = (
       <button
         className='btn btn-success mx-1 w-auto '
+        role={ROLE_INPUT_DYNAMIC_SUBMIT}
         onClick={() => {
           onSubmit({ ...valueContainer.current })
         }}
