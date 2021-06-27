@@ -7,7 +7,7 @@ import util from '../util'
 const ROLE_ADD_FORM = 'role-add-form'
 
 let keyIndex = 0
-const _ReapeatableForm = ({ schema, atKey = null, onChange }) => {
+const _RepeatableForm = ({ schema, atKey = null, onChange }) => {
   const [forms, setForms] = useState([])
   // Value container to store values.
   const valueContainer = useRef({})
@@ -67,10 +67,10 @@ const _ReapeatableForm = ({ schema, atKey = null, onChange }) => {
   )
 }
 
-_ReapeatableForm.propTypes = {
+_RepeatableForm.propTypes = {
   schema: PropTypes.object.isRequired,
   atKey: PropTypes.string,
   onChange: PropTypes.func.isRequired
 }
 
-export const ReapeatableForm = React.memo(_ReapeatableForm)
+export const RepeatableForm = React.memo(_RepeatableForm)

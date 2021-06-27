@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { DynamicFormType } from '../Schema'
 import { StringForm, NumberForm } from './TextyForm'
-import { ReapeatableForm } from './RepeatableForm'
+import { RepeatableForm } from './RepeatableForm'
 import { NestedForm } from './NestedForm'
 import util from '../util'
 
@@ -37,7 +37,7 @@ const _NodeForm = ({ schema, atKey = null, onChange = () => {}, onDelete }) => {
     } else if (schemaForKey.type === DynamicFormType.nested) {
       Form = NestedForm
     } else if (schemaForKey.type === DynamicFormType.repeatable) {
-      Form = ReapeatableForm
+      Form = RepeatableForm
     }
 
     forms.push(

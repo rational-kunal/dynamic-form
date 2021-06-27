@@ -220,7 +220,7 @@ test('Minimal nested form containing minimal sub-form returns recursively expand
 })
 
 test('Expanded repeatable form containing expanded sub-form returns recursively exapnded form', () => {
-  const reapeatableForm = {
+  const repeatableForm = {
     key: {
       label: 'Users',
       type: DynamicFormType.repeatable,
@@ -246,11 +246,11 @@ test('Expanded repeatable form containing expanded sub-form returns recursively 
     }
   }
 
-  expect(schema(reapeatableForm)).toMatchObject(expectedExpandedForm)
+  expect(schema(repeatableForm)).toMatchObject(expectedExpandedForm)
 })
 
 test('Expanded repeatable form containing minimal sub-form returns recursively exapnded form', () => {
-  const reapeatableForm = {
+  const repeatableForm = {
     Users: {
       type: DynamicFormType.repeatable,
       schema: { 'Phone Number': Number }
@@ -270,11 +270,11 @@ test('Expanded repeatable form containing minimal sub-form returns recursively e
     }
   }
 
-  expect(schema(reapeatableForm)).toMatchObject(expectedExpandedForm)
+  expect(schema(repeatableForm)).toMatchObject(expectedExpandedForm)
 })
 
 test('Minimal repeatable form containing expanded sub-form returns recursively exapnded form', () => {
-  const reapeatableForm = {
+  const repeatableForm = {
     'Repeated Form': [
       {
         'Phone Number': {
@@ -298,11 +298,11 @@ test('Minimal repeatable form containing expanded sub-form returns recursively e
     }
   }
 
-  expect(schema(reapeatableForm)).toMatchObject(expectedExpandedForm)
+  expect(schema(repeatableForm)).toMatchObject(expectedExpandedForm)
 })
 
 test('Minimal repeatable form containing minimal sub-form returns recursively exapnded form', () => {
-  const reapeatableForm = {
+  const repeatableForm = {
     Users: [{ 'Phone Number': Number }]
   }
 
@@ -319,7 +319,7 @@ test('Minimal repeatable form containing minimal sub-form returns recursively ex
     }
   }
 
-  expect(schema(reapeatableForm)).toMatchObject(expectedExpandedForm)
+  expect(schema(repeatableForm)).toMatchObject(expectedExpandedForm)
 })
 
 test('Minimal repeatable form containing minimal nested sub-form returns recursively exapnded form', () => {

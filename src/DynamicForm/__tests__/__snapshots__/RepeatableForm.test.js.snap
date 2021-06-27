@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ReapeatableForm with correct props matches base +2 sub form snapshot 1`] = `
+exports[`RepeatableForm with correct props matches base +2 sub form snapshot 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
@@ -305,7 +305,7 @@ Object {
 }
 `;
 
-exports[`ReapeatableForm with correct props matches base snapshot 1`] = `
+exports[`RepeatableForm with correct props matches base snapshot 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
