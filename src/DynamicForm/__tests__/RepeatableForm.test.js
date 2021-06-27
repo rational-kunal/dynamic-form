@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
-import { ReapeatableForm } from '../RepeatableForm'
+import { RepeatableForm } from '../RepeatableForm'
 // eslint-disable-next-line no-unused-vars
 import { toBeInTheDocument } from '@testing-library/jest-dom'
 import { DynamicFormType } from '../../Schema'
@@ -14,7 +14,7 @@ const ROLE_INPUT_NUMBER = 'role-input-number'
 
 const GET_SIMPLE_REPEATABLE_FORM = ({ onChange = () => {}, key = null }) => {
   return (
-    <ReapeatableForm
+    <RepeatableForm
       label='Repeatable Form'
       atKey={key}
       schema={{
@@ -35,13 +35,13 @@ const GET_SIMPLE_REPEATABLE_FORM = ({ onChange = () => {}, key = null }) => {
   )
 }
 
-test('ReapeatableForm with correct props matches base snapshot', () => {
+test('RepeatableForm with correct props matches base snapshot', () => {
   const component = render(GET_SIMPLE_REPEATABLE_FORM({}))
 
   expect(component).toMatchSnapshot()
 })
 
-test('ReapeatableForm with correct props matches base +2 sub form snapshot', () => {
+test('RepeatableForm with correct props matches base +2 sub form snapshot', () => {
   const component = render(GET_SIMPLE_REPEATABLE_FORM({}))
 
   const addFormInput = component.getByRole(ROLE_ADD_FORM)
@@ -51,7 +51,7 @@ test('ReapeatableForm with correct props matches base +2 sub form snapshot', () 
   expect(component).toMatchSnapshot()
 })
 
-test('ReapeatableForm add operations increases number of sub forms', () => {
+test('RepeatableForm add operations increases number of sub forms', () => {
   const component = render(GET_SIMPLE_REPEATABLE_FORM({}))
 
   const addFormInput = component.getByRole(ROLE_ADD_FORM)
@@ -68,7 +68,7 @@ test('ReapeatableForm add operations increases number of sub forms', () => {
   expect(component.getAllByRole(ROLE_COMPONENT_NODE).length).toBe(2)
 })
 
-test('ReapeatableForm delete operations decreases number of sub forms', () => {
+test('RepeatableForm delete operations decreases number of sub forms', () => {
   const component = render(GET_SIMPLE_REPEATABLE_FORM({}))
 
   const addFormInput = component.getByRole(ROLE_ADD_FORM)
