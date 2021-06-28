@@ -58,6 +58,41 @@ test('NumberForm will reflect changed value', () => {
   expect(component.getByDisplayValue('1337')).toBeInTheDocument(component)
 })
 
+test('NumberForm will not have default value if passed default value is not parsable as a number', () => {
+  const component = render(
+    <NumberForm
+      schema={{
+        label: 'Number Form',
+        defaultValue: 'xyz',
+        placeholder: 'Number'
+      }}
+      onChange={() => {}}
+    />
+  )
+
+  expect(component.queryByDisplayValue('xyz')).toBeNull()
+})
+
+test('NumberForm will not change value if new value is not parsable as a number', () => {
+  const component = render(
+    <NumberForm
+      schema={{
+        label: 'Number Form',
+        defaultValue: '0',
+        placeholder: 'Number'
+      }}
+      onChange={() => {}}
+    />
+  )
+
+  const input = component.getByRole(ROLE_INPUT_NUMBER)
+  fireEvent.change(input, {
+    target: { value: 'xyz' }
+  })
+
+  expect(component.queryByDisplayValue('xyz')).toBeNull()
+})
+
 test('StringForm with correct props matches snapshot', () => {
   const component = render(
     <StringForm

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import util from '../util'
 
 const TextyFormType = {
   text: 'TextyFormType.text',
@@ -11,6 +12,8 @@ const INPUT_TYPE_NUMBER = 'number'
 
 const ROLE_INPUT_STRING = 'role-input-string'
 const ROLE_INPUT_NUMBER = 'role-input-number'
+
+const EMPTY_VALUE = ''
 
 export const StringForm = ({ schema, atKey = null, onChange }) => {
   return (
@@ -37,20 +40,31 @@ export const NumberForm = ({ schema, atKey = null, onChange }) => {
 const TextyForm = ({ type, schema, atKey = null, onChange }) => {
   // If default value is not available then use empty string as default value so html will not throw error later.
   const [value, setValue] = useState(() => {
-    if (schema.defaultValue !== undefined) {
-      onChange({ newValue: schema.defaultValue, key: atKey })
-      return schema.defaultValue
-    } else {
-      return ''
+    const providedDefaultValue = schema.defaultValue
+    if (util.isUndefinedOrNull(providedDefaultValue)) {
+      return EMPTY_VALUE
     }
+
+    let defaultValue = providedDefaultValue
+    if (type === TextyFormType.number) {
+      defaultValue = util.parseInteger(providedDefaultValue, EMPTY_VALUE)
+    }
+
+    onChange({ newValue: defaultValue, key: atKey })
+    return defaultValue
   })
 
   const changeValue = (newValue) => {
     const parsedValue =
-      type === TextyFormType.number ? parseInt(newValue) : newValue
-    setValue(parsedValue)
-    if (parsedValue !== undefined)
-      onChange({ newValue: parsedValue, key: atKey })
+      type === TextyFormType.number
+        ? util.parseInteger(newValue, value)
+        : newValue
+
+    if (parsedValue !== value) {
+      setValue(parsedValue)
+      if (parsedValue !== undefined)
+        onChange({ newValue: parsedValue, key: atKey })
+    }
   }
 
   const formType =
