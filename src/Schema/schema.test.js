@@ -219,7 +219,7 @@ test('Minimal nested form containing minimal sub-form returns recursively expand
   expect(schema(nestedForm)).toMatchObject(expectedExpandedForm)
 })
 
-test('Expanded repeatable form containing expanded sub-form returns recursively exapnded form', () => {
+test('Expanded repeatable form containing expanded sub-form returns recursively expanded form', () => {
   const repeatableForm = {
     key: {
       label: 'Users',
@@ -249,7 +249,7 @@ test('Expanded repeatable form containing expanded sub-form returns recursively 
   expect(schema(repeatableForm)).toMatchObject(expectedExpandedForm)
 })
 
-test('Expanded repeatable form containing minimal sub-form returns recursively exapnded form', () => {
+test('Expanded repeatable form containing minimal sub-form returns recursively expanded form', () => {
   const repeatableForm = {
     Users: {
       type: DynamicFormType.repeatable,
@@ -273,7 +273,7 @@ test('Expanded repeatable form containing minimal sub-form returns recursively e
   expect(schema(repeatableForm)).toMatchObject(expectedExpandedForm)
 })
 
-test('Minimal repeatable form containing expanded sub-form returns recursively exapnded form', () => {
+test('Minimal repeatable form containing expanded sub-form returns recursively expanded form', () => {
   const repeatableForm = {
     'Repeated Form': [
       {
@@ -301,7 +301,7 @@ test('Minimal repeatable form containing expanded sub-form returns recursively e
   expect(schema(repeatableForm)).toMatchObject(expectedExpandedForm)
 })
 
-test('Minimal repeatable form containing minimal sub-form returns recursively exapnded form', () => {
+test('Minimal repeatable form containing minimal sub-form returns recursively expanded form', () => {
   const repeatableForm = {
     Users: [{ 'Phone Number': Number }]
   }
@@ -322,9 +322,9 @@ test('Minimal repeatable form containing minimal sub-form returns recursively ex
   expect(schema(repeatableForm)).toMatchObject(expectedExpandedForm)
 })
 
-test('Minimal repeatable form containing minimal nested sub-form returns recursively exapnded form', () => {
+test('Minimal repeatable form containing minimal nested sub-form returns recursively expanded form', () => {
   const minimalForm = {
-    'Reapeated Form': [
+    'Repeated Form': [
       {
         'Nested Form': {
           stringy: 'stringy',
@@ -335,8 +335,8 @@ test('Minimal repeatable form containing minimal nested sub-form returns recursi
   }
 
   const expectedExpandedForm = {
-    'Reapeated Form': {
-      label: 'Reapeated Form',
+    'Repeated Form': {
+      label: 'Repeated Form',
       type: DynamicFormType.repeatable,
       schema: {
         'Nested Form': {
@@ -361,10 +361,10 @@ test('Minimal repeatable form containing minimal nested sub-form returns recursi
   expect(schema(minimalForm)).toMatchObject(expectedExpandedForm)
 })
 
-test('Minimal nested form containing minimal repeatable sub-form returns recursively exapnded form', () => {
+test('Minimal nested form containing minimal repeatable sub-form returns recursively expanded form', () => {
   const minimalForm = {
     'Nested Form': {
-      'Reapeated Form': [
+      'Repeated Form': [
         {
           stringy: String,
           numbery: 0
@@ -378,8 +378,8 @@ test('Minimal nested form containing minimal repeatable sub-form returns recursi
       label: 'Nested Form',
       type: DynamicFormType.nested,
       schema: {
-        'Reapeated Form': {
-          label: 'Reapeated Form',
+        'Repeated Form': {
+          label: 'Repeated Form',
           type: DynamicFormType.repeatable,
           schema: {
             stringy: {
@@ -398,4 +398,34 @@ test('Minimal nested form containing minimal repeatable sub-form returns recursi
   }
 
   expect(schema(minimalForm)).toMatchObject(expectedExpandedForm)
+})
+
+test('number: Default value of number form will be parsed', () => {
+  const numberForm = {
+    numberForm: {
+      label: 'Number Form',
+      type: DynamicFormType.number,
+      defaultValue: '0'
+    }
+  }
+
+  const parsedSchema = schema(numberForm).numberForm
+  expect(parsedSchema.defaultValue).toBe(0)
+})
+
+test('number: Default value of number form will be null if value is not parsable', () => {
+  const numberForm = {
+    numberForm: {
+      label: 'Number Form',
+      type: DynamicFormType.number,
+      defaultValue: 'xyz'
+    }
+  }
+
+  const parsedSchema = schema(numberForm).numberForm
+
+  expect(
+    Object.prototype.hasOwnProperty.call(parsedSchema, 'defaultValue')
+  ).toBeTruthy()
+  expect(parsedSchema.defaultValue).toBeNull()
 })

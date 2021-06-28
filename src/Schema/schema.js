@@ -1,5 +1,6 @@
 /* eslint-disable no-prototype-builtins */
 import { DynamicFormType } from './type'
+import util from '../util'
 
 const schema = (sch) => {
   const expandedSch = {}
@@ -26,9 +27,16 @@ const getLabelFromKeyAndSchema = (key, schemaForKey) => {
 }
 
 const getDefaultValueFromKeyAndSchema = (sch) => {
-  if (sch.hasOwnProperty('defaultValue')) return sch.defaultValue
-
   const type = getTypeOfSchemaFromSchema(sch)
+  if (sch.hasOwnProperty('defaultValue')) {
+    const defaultValue = sch.defaultValue
+    if (type === DynamicFormType.number) {
+      return util.parseInteger(defaultValue)
+    }
+
+    return defaultValue
+  }
+
   if (type === DynamicFormType.text && typeof sch === 'string') return sch
   if (type === DynamicFormType.number && typeof sch === 'number') return sch
 }
