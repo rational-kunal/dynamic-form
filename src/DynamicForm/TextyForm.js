@@ -55,10 +55,15 @@ const TextyForm = ({ type, schema, atKey = null, onChange }) => {
   })
 
   const changeValue = (newValue) => {
-    const parsedValue =
+    // For number form if value is not parsable it will have previous form value.
+    // This means form value will not change for user if he tries to add string in Number Form.
+    let parsedValue =
       type === TextyFormType.number
         ? util.parseInteger(newValue, value)
         : newValue
+
+    // Number type can have empty string as a value.
+    parsedValue = newValue === EMPTY_VALUE ? EMPTY_VALUE : parsedValue
 
     if (parsedValue !== value) {
       setValue(parsedValue)

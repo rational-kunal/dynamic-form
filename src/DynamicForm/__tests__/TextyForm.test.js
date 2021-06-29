@@ -93,6 +93,30 @@ test('NumberForm will not change value if new value is not parsable as a number'
   expect(component.queryByDisplayValue('xyz')).toBeNull()
 })
 
+test('NumberForm can change value to empty string', () => {
+  let value = null
+  const component = render(
+    <NumberForm
+      schema={{
+        label: 'Number Form',
+        defaultValue: '0',
+        placeholder: 'Number'
+      }}
+      onChange={({ newValue }) => {
+        value = newValue
+      }}
+    />
+  )
+
+  const input = component.getByRole(ROLE_INPUT_NUMBER)
+  fireEvent.change(input, {
+    target: { value: '' }
+  })
+
+  expect(component.queryByDisplayValue('0')).toBeNull()
+  expect(value).toBe('')
+})
+
 test('StringForm with correct props matches snapshot', () => {
   const component = render(
     <StringForm
