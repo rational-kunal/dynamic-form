@@ -15,13 +15,13 @@ const dispatchAsync = (func, timeToFireAfter = 0) => {
 }
 
 // Returns if given paramter or parsed version of parameter is integer or not.
-const isInteger = (value) => {
+const isParsableToInteger = (value) => {
   return !isNaN(parseInt(value))
 }
 
 // Returns parsed integer or fallbackValue if not possible to parse.
 const parseInteger = (value, fallbackValue = null) => {
-  return isInteger(value) ? parseInt(value) : fallbackValue
+  return isParsableToInteger(value) ? parseInt(value) : fallbackValue
 }
 
 const isUndefinedOrNull = (value) => {
@@ -31,7 +31,7 @@ const isUndefinedOrNull = (value) => {
 export default {
   isUndefinedOrNull,
   parseInteger,
-  isInteger,
+  isParsableToInteger,
   isFunction,
   uniqueKey,
   dispatchAsync
