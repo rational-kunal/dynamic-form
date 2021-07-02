@@ -11,14 +11,18 @@ const ROLE_COMPONENT_NODE = 'component-node'
 const ROLE_INPUT_NODE_DELETE = 'input-node-delete'
 const ROLE_INPUT_STRING = 'role-input-string'
 const ROLE_INPUT_NUMBER = 'role-input-number'
+const ROLE_LABEL_REPEATABLE = 'role-label-repeatable'
 
-const GET_SIMPLE_REPEATABLE_FORM = ({ onChange = () => {}, key = null }) => {
+const GET_SIMPLE_REPEATABLE_FORM = ({
+  onChange = () => {},
+  key = null,
+  label = 'Repeatable Form'
+}) => {
   return (
     <RepeatableForm
-      label='Repeatable Form'
       atKey={key}
       schema={{
-        label: 'Repeatable Form',
+        label: label,
         schema: {
           stringForm: {
             label: 'String Form',
@@ -146,4 +150,16 @@ test('RepeatableForm will reflect changed value', () => {
 
   expect(component.getByDisplayValue('New Value')).toBeInTheDocument(component)
   expect(component.getByDisplayValue(1337)).toBeInTheDocument(component)
+})
+
+test('RepeatableForm with proper label will have label', () => {
+  const component = render(GET_SIMPLE_REPEATABLE_FORM({ label: 'LABEL' }))
+
+  expect(component.getByText('LABEL')).toBeInTheDocument()
+})
+
+test('RepeatableForm with empty label will not have any label', () => {
+  const component = render(GET_SIMPLE_REPEATABLE_FORM({ label: '' }))
+
+  expect(component.queryByRole(ROLE_LABEL_REPEATABLE)).toBeNull()
 })

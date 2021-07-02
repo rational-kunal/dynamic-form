@@ -7,6 +7,7 @@ import { NumberForm, StringForm } from '../TextyForm'
 
 const ROLE_INPUT_STRING = 'role-input-string'
 const ROLE_INPUT_NUMBER = 'role-input-number'
+const ROLE_LABEL_TEXTY = 'role-label-texty'
 
 test('NumberForm with correct props matches snapshot', () => {
   const component = render(
@@ -117,6 +118,36 @@ test('NumberForm can change value to empty string', () => {
   expect(value).toBe('')
 })
 
+test('NumberForm with proper label will have label', () => {
+  const component = render(
+    <NumberForm
+      schema={{
+        label: 'LABEL',
+        defaultValue: '0',
+        placeholder: 'Number'
+      }}
+      onChange={() => {}}
+    />
+  )
+
+  expect(component.getByText('LABEL')).toBeInTheDocument()
+})
+
+test('NumberForm with empty label will not have any label', () => {
+  const component = render(
+    <NumberForm
+      schema={{
+        label: '',
+        defaultValue: '0',
+        placeholder: 'Number'
+      }}
+      onChange={() => {}}
+    />
+  )
+
+  expect(component.queryByRole(ROLE_LABEL_TEXTY)).toBeNull()
+})
+
 test('StringForm with correct props matches snapshot', () => {
   const component = render(
     <StringForm
@@ -177,4 +208,34 @@ test('StringForm will reflect changed value', () => {
   })
 
   expect(component.getByDisplayValue('New Value')).toBeInTheDocument(component)
+})
+
+test('StringForm with proper label will have label', () => {
+  const component = render(
+    <StringForm
+      schema={{
+        label: 'LABEL',
+        defaultValue: '0',
+        placeholder: 'Number'
+      }}
+      onChange={() => {}}
+    />
+  )
+
+  expect(component.getByText('LABEL')).toBeInTheDocument()
+})
+
+test('StringForm with empty label will not have any label', () => {
+  const component = render(
+    <StringForm
+      schema={{
+        label: '',
+        defaultValue: 'Default Value',
+        placeholder: 'String'
+      }}
+      onChange={() => {}}
+    />
+  )
+
+  expect(component.queryByRole(ROLE_LABEL_TEXTY)).toBeNull()
 })

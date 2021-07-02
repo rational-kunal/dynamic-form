@@ -10,6 +10,7 @@ Object {
       >
         <div
           class="card-header"
+          role="role-label-nested"
         >
           Nested Form
         </div>
@@ -28,10 +29,9 @@ Object {
               >
                 <span
                   class="input-group-text"
+                  role="role-label-texty"
                 >
-                   
                   String Form
-                   
                 </span>
                 <input
                   class="form-control"
@@ -45,10 +45,9 @@ Object {
               >
                 <span
                   class="input-group-text"
+                  role="role-label-texty"
                 >
-                   
                   Number Form
-                   
                 </span>
                 <input
                   class="form-control"
@@ -69,6 +68,7 @@ Object {
     >
       <div
         class="card-header"
+        role="role-label-nested"
       >
         Nested Form
       </div>
@@ -87,10 +87,9 @@ Object {
             >
               <span
                 class="input-group-text"
+                role="role-label-texty"
               >
-                 
                 String Form
-                 
               </span>
               <input
                 class="form-control"
@@ -104,10 +103,9 @@ Object {
             >
               <span
                 class="input-group-text"
+                role="role-label-texty"
               >
-                 
                 Number Form
-                 
               </span>
               <input
                 class="form-control"

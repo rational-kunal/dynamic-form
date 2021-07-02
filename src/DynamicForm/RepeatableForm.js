@@ -5,6 +5,7 @@ import { NodeForm } from './NodeForm'
 import util from '../util'
 
 const ROLE_ADD_FORM = 'role-add-form'
+const ROLE_LABEL_REPEATABLE = 'role-label-repeatable'
 
 let keyIndex = 0
 const _RepeatableForm = ({ schema, atKey = null, onChange }) => {
@@ -48,7 +49,11 @@ const _RepeatableForm = ({ schema, atKey = null, onChange }) => {
   // TODO: Add icon to delete button
   return (
     <div className='card border-secondary'>
-      <div className='card-header'>{schema.label}</div>
+      {schema.label && (
+        <div className='card-header' role={ROLE_LABEL_REPEATABLE}>
+          {schema.label}
+        </div>
+      )}
       <div className='card-body p-1'>
         {forms}
         <div className='d-grid'>
