@@ -1,6 +1,6 @@
 # dynamic-form
 
-Statefull forms on the fly.
+Stateful forms on the fly.
 
 ![npm](https://img.shields.io/npm/v/@rational-kunal/dynamic-form?logo=NPM&style=for-the-badge)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/rational-kunal/dynamic-form/Node.js%20CI?logo=GitHub&style=for-the-badge)
@@ -50,7 +50,7 @@ The core component that will render a form for a given schema.
 
 ## `DynamicForm.type`
 
-Available form types. This will also control how value will be returned through `onChange` and `onUpdate`.
+Available form types. This will also control how value will be returned through `onChange` and `onSubmit`.
 
 TODO: Update notes with nature of types.
 
