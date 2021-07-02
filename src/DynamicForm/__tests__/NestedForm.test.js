@@ -8,6 +8,7 @@ import { DynamicFormType } from '../../Schema'
 
 const ROLE_INPUT_STRING = 'role-input-string'
 const ROLE_INPUT_NUMBER = 'role-input-number'
+const ROLE_LABEL_NESTED = 'role-label-nested'
 
 test('NestedForm with correct props matches snapshot', () => {
   const component = render(
@@ -110,4 +111,50 @@ test('NestedForm will reflect changed value', () => {
 
   expect(component.getByDisplayValue('New Value')).toBeInTheDocument(component)
   expect(component.getByDisplayValue(1337)).toBeInTheDocument(component)
+})
+
+test('NestedForm with proper label will have label', () => {
+  const component = render(
+    <NestedForm
+      schema={{
+        label: 'LABEL',
+        schema: {
+          stringForm: {
+            label: 'String Form',
+            type: DynamicFormType.text
+          },
+          numberForm: {
+            label: 'Number Form',
+            type: DynamicFormType.number
+          }
+        }
+      }}
+      onChange={() => {}}
+    />
+  )
+
+  expect(component.getByText('LABEL')).toBeInTheDocument()
+})
+
+test('NestedForm with empty label will not have any label', () => {
+  const component = render(
+    <NestedForm
+      schema={{
+        label: '',
+        schema: {
+          stringForm: {
+            label: 'String Form',
+            type: DynamicFormType.text
+          },
+          numberForm: {
+            label: 'Number Form',
+            type: DynamicFormType.number
+          }
+        }
+      }}
+      onChange={() => {}}
+    />
+  )
+
+  expect(component.queryByRole(ROLE_LABEL_NESTED)).toBeNull()
 })

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 
 import { NodeForm } from './NodeForm'
 
+const ROLE_LABEL_NESTED = 'role-label-nested'
+
 const _NestedForm = ({ schema, atKey = null, onChange }) => {
   const changeValue = ({ newValue }) => {
     onChange({ newValue, key: atKey })
@@ -11,7 +13,11 @@ const _NestedForm = ({ schema, atKey = null, onChange }) => {
   // TODO: Add icon to delete button
   return (
     <div className='card border-info'>
-      <div className='card-header'>{schema.label}</div>
+      {schema.label && (
+        <div className='card-header' role={ROLE_LABEL_NESTED}>
+          {schema.label}
+        </div>
+      )}
       <div className='card-body p-1 d-grid gap-1'>
         <NodeForm schema={schema.schema} onChange={changeValue} />
       </div>

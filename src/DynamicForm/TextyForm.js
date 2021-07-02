@@ -12,6 +12,7 @@ const INPUT_TYPE_NUMBER = 'number'
 
 const ROLE_INPUT_STRING = 'role-input-string'
 const ROLE_INPUT_NUMBER = 'role-input-number'
+const ROLE_LABEL_TEXTY = 'role-label-texty'
 
 const EMPTY_VALUE = ''
 
@@ -80,7 +81,12 @@ const TextyForm = ({ type, schema, atKey = null, onChange }) => {
 
   return (
     <div className='input-group flex-nowrap'>
-      <span className='input-group-text'> {schema.label} </span>
+      {schema.label && (
+        <span className='input-group-text' role={ROLE_LABEL_TEXTY}>
+          {schema.label}
+        </span>
+      )}
+
       <input
         type={formType}
         role={inputType}

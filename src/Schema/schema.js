@@ -22,7 +22,7 @@ const getExpandedSchemaFromKeyAndSchema = (key, schemaForKey) => {
 }
 
 const getLabelFromKeyAndSchema = (key, schemaForKey) => {
-  if (schemaForKey.label) return schemaForKey.label
+  if (schemaForKey.hasOwnProperty('label')) return schemaForKey.label
   return key
 }
 
