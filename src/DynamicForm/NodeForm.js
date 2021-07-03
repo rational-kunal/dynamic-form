@@ -1,14 +1,11 @@
-import React, { useCallback, useRef } from 'react'
 import PropTypes from 'prop-types'
-
+import React, { useCallback, useRef } from 'react'
 import { DynamicFormType } from '../Schema'
-import { StringForm, NumberForm } from './TextyForm'
-import { RepeatableForm } from './RepeatableForm'
-import { NestedForm } from './NestedForm'
 import util from '../util'
-
-const ROLE_COMPONENT_NODE = 'component-node'
-const ROLE_INPUT_NODE_DELETE = 'input-node-delete'
+import { NestedForm } from './NestedForm'
+import { RepeatableForm } from './RepeatableForm'
+import { ROLE_COMPONENT_NODE, ROLE_INPUT_NODE_DELETE } from './roles'
+import { NumberForm, StringForm } from './TextyForm'
 
 // TODO: Add tests
 // TODO: On hover add border

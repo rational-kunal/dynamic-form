@@ -1,17 +1,18 @@
 /* eslint-disable no-undef */
-import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
-import { RepeatableForm } from '../RepeatableForm'
 // eslint-disable-next-line no-unused-vars
 import { toBeInTheDocument } from '@testing-library/jest-dom'
+import { fireEvent, render } from '@testing-library/react'
+import React from 'react'
 import { DynamicFormType } from '../../Schema'
-
-const ROLE_ADD_FORM = 'role-add-form'
-const ROLE_COMPONENT_NODE = 'component-node'
-const ROLE_INPUT_NODE_DELETE = 'input-node-delete'
-const ROLE_INPUT_STRING = 'role-input-string'
-const ROLE_INPUT_NUMBER = 'role-input-number'
-const ROLE_LABEL_REPEATABLE = 'role-label-repeatable'
+import { RepeatableForm } from '../RepeatableForm'
+import {
+  ROLE_ADD_FORM,
+  ROLE_COMPONENT_NODE,
+  ROLE_INPUT_NODE_DELETE,
+  ROLE_INPUT_NUMBER,
+  ROLE_INPUT_STRING,
+  ROLE_LABEL_REPEATABLE
+} from '../roles'
 
 const GET_SIMPLE_REPEATABLE_FORM = ({
   onChange = () => {},

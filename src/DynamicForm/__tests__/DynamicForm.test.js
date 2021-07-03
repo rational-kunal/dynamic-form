@@ -1,11 +1,9 @@
 /* eslint-disable no-undef */
+import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
-import { DynamicForm } from '../index'
 import { DynamicFormType } from '../../Schema'
-
-const ROLE_INPUT_STRING = 'role-input-string'
-const ROLE_INPUT_DYNAMIC_SUBMIT = 'input-dynamic-submit'
+import { DynamicForm } from '../index'
+import { ROLE_INPUT_DYNAMIC_SUBMIT, ROLE_INPUT_STRING } from '../roles'
 
 test('DynamicForm with correct props matches snapshot', () => {
   const component = render(

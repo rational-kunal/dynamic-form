@@ -1,10 +1,8 @@
-import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
-
-import { NodeForm } from './NodeForm'
+import React, { useRef } from 'react'
 import util from '../util'
-
-const ROLE_INPUT_DYNAMIC_SUBMIT = 'input-dynamic-submit'
+import { NodeForm } from './NodeForm'
+import { ROLE_INPUT_DYNAMIC_SUBMIT } from './roles'
 
 // TODO: Add overall end to end test for all types of form
 // TODO: Add test for keys with large schema.
