@@ -1,11 +1,8 @@
-import React, { useState, useRef, useCallback } from 'react'
 import PropTypes from 'prop-types'
-
-import { NodeForm } from './NodeForm'
+import React, { useCallback, useRef, useState } from 'react'
 import util from '../util'
-
-const ROLE_ADD_FORM = 'role-add-form'
-const ROLE_LABEL_REPEATABLE = 'role-label-repeatable'
+import { NodeForm } from './NodeForm'
+import { ROLE_ADD_FORM, ROLE_LABEL_REPEATABLE } from './roles'
 
 let keyIndex = 0
 const _RepeatableForm = ({ schema, atKey = null, onChange }) => {

@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import React, { useState } from 'react'
 import util from '../util'
+import { ROLE_INPUT_NUMBER, ROLE_INPUT_STRING, ROLE_LABEL_TEXTY } from './roles'
 
 const TextyFormType = {
   text: 'TextyFormType.text',
@@ -9,10 +10,6 @@ const TextyFormType = {
 
 const INPUT_TYPE_STRING = 'text'
 const INPUT_TYPE_NUMBER = 'number'
-
-const ROLE_INPUT_STRING = 'role-input-string'
-const ROLE_INPUT_NUMBER = 'role-input-number'
-const ROLE_LABEL_TEXTY = 'role-label-texty'
 
 const EMPTY_VALUE = ''
 
