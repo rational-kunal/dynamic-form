@@ -1,15 +1,18 @@
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import util from '../util'
-import { ROLE_INPUT_NUMBER, ROLE_INPUT_STRING, ROLE_LABEL_TEXTY } from './roles'
+import {
+  ROLE_INPUT_NUMBER,
+  ROLE_INPUT_PASSWORD,
+  ROLE_INPUT_STRING,
+  ROLE_LABEL_TEXTY
+} from './roles'
 
 const TextyFormType = {
-  text: 'TextyFormType.text',
-  number: 'TextyFormType.number'
+  text: 'text',
+  number: 'number',
+  password: 'password'
 }
-
-const INPUT_TYPE_STRING = 'text'
-const INPUT_TYPE_NUMBER = 'number'
 
 const EMPTY_VALUE = ''
 
@@ -33,6 +36,23 @@ export const NumberForm = ({ schema, atKey = null, onChange }) => {
       onChange={onChange}
     />
   )
+}
+
+export const PasswordForm = ({ schema, atKey = null, onChange }) => {
+  return (
+    <TextyForm
+      type={TextyFormType.password}
+      schema={schema}
+      atKey={atKey}
+      onChange={onChange}
+    />
+  )
+}
+
+const inputRoleFromType = (type) => {
+  if (type === TextyFormType.text) return ROLE_INPUT_STRING
+  if (type === TextyFormType.number) return ROLE_INPUT_NUMBER
+  if (type === TextyFormType.password) return ROLE_INPUT_PASSWORD
 }
 
 const TextyForm = ({ type, schema, atKey = null, onChange }) => {
@@ -70,12 +90,6 @@ const TextyForm = ({ type, schema, atKey = null, onChange }) => {
     }
   }
 
-  const formType =
-    type === TextyFormType.text ? INPUT_TYPE_STRING : INPUT_TYPE_NUMBER
-
-  const inputType =
-    type === TextyFormType.text ? ROLE_INPUT_STRING : ROLE_INPUT_NUMBER
-
   return (
     <div className='input-group flex-nowrap'>
       {schema.label && (
@@ -85,8 +99,8 @@ const TextyForm = ({ type, schema, atKey = null, onChange }) => {
       )}
 
       <input
-        type={formType}
-        role={inputType}
+        type={type}
+        role={inputRoleFromType(type)}
         className='form-control'
         placeholder={schema.placeholder}
         value={value}

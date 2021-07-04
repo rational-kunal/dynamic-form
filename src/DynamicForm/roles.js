@@ -1,6 +1,7 @@
 // TextyForm
 export const ROLE_INPUT_STRING = 'role-input-string'
 export const ROLE_INPUT_NUMBER = 'role-input-number'
+export const ROLE_INPUT_PASSWORD = 'role-input-password'
 export const ROLE_LABEL_TEXTY = 'role-label-texty'
 
 // RepeatableForm

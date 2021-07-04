@@ -5,7 +5,7 @@ import util from '../util'
 import { NestedForm } from './NestedForm'
 import { RepeatableForm } from './RepeatableForm'
 import { ROLE_COMPONENT_NODE, ROLE_INPUT_NODE_DELETE } from './roles'
-import { NumberForm, StringForm } from './TextyForm'
+import { NumberForm, PasswordForm, StringForm } from './TextyForm'
 
 // TODO: Add tests
 // TODO: On hover add border
@@ -31,6 +31,8 @@ const _NodeForm = ({ schema, atKey = null, onChange = () => {}, onDelete }) => {
       Form = StringForm
     } else if (schemaForKey.type === DynamicFormType.number) {
       Form = NumberForm
+    } else if (schemaForKey.type === DynamicFormType.password) {
+      Form = PasswordForm
     } else if (schemaForKey.type === DynamicFormType.nested) {
       Form = NestedForm
     } else if (schemaForKey.type === DynamicFormType.repeatable) {
