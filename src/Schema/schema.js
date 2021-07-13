@@ -1,6 +1,7 @@
 /* eslint-disable no-prototype-builtins */
-import { DynamicFormType } from './type'
 import util from '../util'
+import { DynamicFormSize } from './size'
+import { DynamicFormType } from './type'
 
 const schema = (sch) => {
   const expandedSch = {}
@@ -17,6 +18,7 @@ const getExpandedSchemaFromKeyAndSchema = (key, schemaForKey) => {
     label: getLabelFromKeyAndSchema(key, schemaForKey),
     placeholder: schemaForKey.placeholder,
     defaultValue: getDefaultValueFromKeyAndSchema(schemaForKey),
+    size: getSizeFromSchema(schemaForKey),
     schema: getSubSchemaFromSchema(schemaForKey)
   }
 }
@@ -56,6 +58,11 @@ const getSubSchemaFromSchema = (sch) => {
   const type = getTypeOfSchemaFromSchema(sch)
   if (type === DynamicFormType.nested) return schema(sch)
   if (type === DynamicFormType.repeatable) return schema(sch[0])
+}
+
+const getSizeFromSchema = (sch) => {
+  if (sch.hasOwnProperty('size')) return sch.size
+  return DynamicFormSize.unknown
 }
 
 export { schema }
