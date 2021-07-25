@@ -50,6 +50,7 @@ export const PasswordForm = ({ schema, atKey = null, onChange }) => {
   )
 }
 
+// TODO: Add these functions in `styleHelper`
 const textyFormSizeFromSchemaSize = (schemaSize = DynamicFormSize.medium) => {
   if (schemaSize === DynamicFormSize.small) return 'form-control-sm'
   if (schemaSize === DynamicFormSize.large) return 'form-control-lg'
