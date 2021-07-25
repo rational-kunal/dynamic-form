@@ -1,6 +1,19 @@
 /* eslint-disable no-undef */
 import { schema } from './schema'
 import { DynamicFormType } from './type'
+import { DynamicFormSize } from './size'
+
+const GET_SIMPLE_EXPANDED_NUMBER_FORM_SCHEMA = ({ size = null }) => {
+  const numberForm = {
+    label: 'Number Form',
+    type: DynamicFormType.number,
+    defaultValue: 'xyz'
+  }
+
+  if (size !== null) numberForm.size = size
+
+  return { numberForm }
+}
 
 // TODO: refractor form -> schema || form schema.
 test('Expanded string form returns expanded form', () => {
@@ -428,4 +441,40 @@ test('number: Default value of number form will be null if value is not parsable
     Object.prototype.hasOwnProperty.call(parsedSchema, 'defaultValue')
   ).toBeTruthy()
   expect(parsedSchema.defaultValue).toBeNull()
+})
+
+describe('size', () => {
+  test('will be unknown if no size is provided', () => {
+    const numberForm = GET_SIMPLE_EXPANDED_NUMBER_FORM_SCHEMA({})
+    const parsedSchema = schema(numberForm).numberForm
+
+    expect(parsedSchema.size).toBe(DynamicFormSize.unknown)
+  })
+
+  test('will be large if large size is provided', () => {
+    const numberForm = GET_SIMPLE_EXPANDED_NUMBER_FORM_SCHEMA({
+      size: DynamicFormSize.large
+    })
+    const parsedSchema = schema(numberForm).numberForm
+
+    expect(parsedSchema.size).toBe(DynamicFormSize.large)
+  })
+
+  test('will be medium if medium size is provided', () => {
+    const numberForm = GET_SIMPLE_EXPANDED_NUMBER_FORM_SCHEMA({
+      size: DynamicFormSize.medium
+    })
+    const parsedSchema = schema(numberForm).numberForm
+
+    expect(parsedSchema.size).toBe(DynamicFormSize.medium)
+  })
+
+  test('will be small if small size is provided', () => {
+    const numberForm = GET_SIMPLE_EXPANDED_NUMBER_FORM_SCHEMA({
+      size: DynamicFormSize.small
+    })
+    const parsedSchema = schema(numberForm).numberForm
+
+    expect(parsedSchema.size).toBe(DynamicFormSize.small)
+  })
 })

@@ -6,7 +6,7 @@ Object {
   "baseElement": <body>
     <div>
       <div
-        class="input-group flex-nowrap"
+        class="input-group flex-nowrap input-group-md"
       >
         <span
           class="input-group-text"
@@ -15,7 +15,7 @@ Object {
           Number Form
         </span>
         <input
-          class="form-control"
+          class="form-control form-control-md"
           placeholder="Number"
           role="role-input-number"
           type="number"
@@ -26,7 +26,7 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="input-group flex-nowrap"
+      class="input-group flex-nowrap input-group-md"
     >
       <span
         class="input-group-text"
@@ -35,7 +35,7 @@ Object {
         Number Form
       </span>
       <input
-        class="form-control"
+        class="form-control form-control-md"
         placeholder="Number"
         role="role-input-number"
         type="number"

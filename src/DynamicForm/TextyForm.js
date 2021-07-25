@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
+import { DynamicFormSize } from '../Schema'
 import util from '../util'
 import {
   ROLE_INPUT_NUMBER,
@@ -49,6 +50,18 @@ export const PasswordForm = ({ schema, atKey = null, onChange }) => {
   )
 }
 
+const textyFormSizeFromSchemaSize = (schemaSize = DynamicFormSize.medium) => {
+  if (schemaSize === DynamicFormSize.small) return 'form-control-sm'
+  if (schemaSize === DynamicFormSize.large) return 'form-control-lg'
+  return 'form-control-md'
+}
+
+const inputGroupSizeFromSchemaSize = (schemaSize = DynamicFormSize.medium) => {
+  if (schemaSize === DynamicFormSize.small) return 'input-group-sm'
+  if (schemaSize === DynamicFormSize.large) return 'input-group-lg'
+  return 'input-group-md'
+}
+
 const inputRoleFromType = (type) => {
   if (type === TextyFormType.text) return ROLE_INPUT_STRING
   if (type === TextyFormType.number) return ROLE_INPUT_NUMBER
@@ -90,10 +103,18 @@ const TextyForm = ({ type, schema, atKey = null, onChange }) => {
     }
   }
 
+  const className = {
+    group: `input-group flex-nowrap ${inputGroupSizeFromSchemaSize(
+      schema.size
+    )}`,
+    label: 'input-group-text',
+    input: `form-control ${textyFormSizeFromSchemaSize(schema.size)}`
+  }
+
   return (
-    <div className='input-group flex-nowrap'>
+    <div className={className.group}>
       {schema.label && (
-        <span className='input-group-text' role={ROLE_LABEL_TEXTY}>
+        <span className={className.label} role={ROLE_LABEL_TEXTY}>
           {schema.label}
         </span>
       )}
@@ -101,7 +122,7 @@ const TextyForm = ({ type, schema, atKey = null, onChange }) => {
       <input
         type={type}
         role={inputRoleFromType(type)}
-        className='form-control'
+        className={className.input}
         placeholder={schema.placeholder}
         value={value}
         onChange={(e) => changeValue(e.target.value)}

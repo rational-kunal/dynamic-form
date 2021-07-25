@@ -3,6 +3,7 @@
 import { toBeInTheDocument } from '@testing-library/jest-dom'
 import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
+import { DynamicFormSize } from '../../Schema'
 import { ROLE_INPUT_NUMBER, ROLE_LABEL_TEXTY } from '../roles'
 import { NumberForm } from '../TextyForm'
 
@@ -11,11 +12,12 @@ const GET_SIMPLE_NUMBER_FORM = ({
   defaultValue = 0,
   placeholder = 'Number',
   key = null,
+  size = DynamicFormSize.medium,
   onChange = () => {}
 }) => {
   return (
     <NumberForm
-      schema={{ label, defaultValue, placeholder }}
+      schema={{ label, defaultValue, placeholder, size }}
       atKey={key}
       onChange={onChange}
     />
@@ -107,4 +109,44 @@ test('NumberForm with empty label will not have any label', () => {
   const component = render(GET_SIMPLE_NUMBER_FORM({ label: '' }))
 
   expect(component.queryByRole(ROLE_LABEL_TEXTY)).toBeNull()
+})
+
+describe('NumberForm size is', () => {
+  test('small if small schema size is passed', () => {
+    const component = render(
+      GET_SIMPLE_NUMBER_FORM({ size: DynamicFormSize.small })
+    )
+
+    const input = component.getByRole(ROLE_INPUT_NUMBER)
+    expect(input.classList).toContain('form-control-sm')
+    expect(component.container.firstChild.classList).toContain('input-group-sm')
+  })
+
+  test('medium if medium schema size is passed', () => {
+    const component = render(
+      GET_SIMPLE_NUMBER_FORM({ size: DynamicFormSize.medium })
+    )
+
+    const input = component.getByRole(ROLE_INPUT_NUMBER)
+    expect(input.classList).toContain('form-control-md')
+    expect(component.container.firstChild.classList).toContain('input-group-md')
+  })
+
+  test('medium if no schema size is passed', () => {
+    const component = render(GET_SIMPLE_NUMBER_FORM({ size: undefined }))
+
+    const input = component.getByRole(ROLE_INPUT_NUMBER)
+    expect(input.classList).toContain('form-control-md')
+    expect(component.container.firstChild.classList).toContain('input-group-md')
+  })
+
+  test('large if large schema size is passed', () => {
+    const component = render(
+      GET_SIMPLE_NUMBER_FORM({ size: DynamicFormSize.large })
+    )
+
+    const input = component.getByRole(ROLE_INPUT_NUMBER)
+    expect(input.classList).toContain('form-control-lg')
+    expect(component.container.firstChild.classList).toContain('input-group-lg')
+  })
 })
