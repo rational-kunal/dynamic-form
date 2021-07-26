@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { useCallback, useRef, useState } from 'react'
 import util from '../util'
+import { buttonSizeFromSchemaSize } from './helper/styleHelper'
 import { NodeForm } from './NodeForm'
 import { ROLE_ADD_FORM, ROLE_LABEL_REPEATABLE } from './roles'
 
@@ -39,23 +40,33 @@ const _RepeatableForm = ({ schema, atKey = null, onChange }) => {
         schema={schema.schema}
         onChange={changeValueForKey}
         onDelete={removeFormWithValueForKey}
+        deleteSize={schema.size}
       />
     ])
   }
 
+  const addButtonStyle = buttonSizeFromSchemaSize(schema.size)
+  const className = {
+    card: 'card border-secondary',
+    cardHeader: 'card-header',
+    body: 'card-body p-1',
+    addButtonContainer: 'd-grid',
+    addButton: `btn btn-outline-secondary mx-1 w-auto ${addButtonStyle}`
+  }
+
   // TODO: Add icon to delete button
   return (
-    <div className='card border-secondary'>
+    <div className={className.card}>
       {schema.label && (
-        <div className='card-header' role={ROLE_LABEL_REPEATABLE}>
+        <div className={className.cardHeader} role={ROLE_LABEL_REPEATABLE}>
           {schema.label}
         </div>
       )}
-      <div className='card-body p-1'>
+      <div className={className.body}>
         {forms}
-        <div className='d-grid'>
+        <div className={className.addButtonContainer}>
           <button
-            className='btn btn-outline-secondary mx-1 w-auto'
+            className={className.addButton}
             role={ROLE_ADD_FORM}
             onClick={() => {
               addForm()
