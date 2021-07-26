@@ -57,7 +57,7 @@ Object {
                 />
               </div>
               <button
-                class="btn btn-outline-danger w-20"
+                class="btn btn-outline-danger w-20 btn-md"
                 role="input-node-delete"
               >
                 Delete
@@ -104,7 +104,7 @@ Object {
                 />
               </div>
               <button
-                class="btn btn-outline-danger w-20"
+                class="btn btn-outline-danger w-20 btn-md"
                 role="input-node-delete"
               >
                 Delete
@@ -115,7 +115,7 @@ Object {
             class="d-grid"
           >
             <button
-              class="btn btn-outline-secondary mx-1 w-auto"
+              class="btn btn-outline-secondary mx-1 w-auto btn-md"
               role="role-add-form"
             >
               Add
@@ -178,7 +178,7 @@ Object {
               />
             </div>
             <button
-              class="btn btn-outline-danger w-20"
+              class="btn btn-outline-danger w-20 btn-md"
               role="input-node-delete"
             >
               Delete
@@ -225,7 +225,7 @@ Object {
               />
             </div>
             <button
-              class="btn btn-outline-danger w-20"
+              class="btn btn-outline-danger w-20 btn-md"
               role="input-node-delete"
             >
               Delete
@@ -236,7 +236,7 @@ Object {
           class="d-grid"
         >
           <button
-            class="btn btn-outline-secondary mx-1 w-auto"
+            class="btn btn-outline-secondary mx-1 w-auto btn-md"
             role="role-add-form"
           >
             Add
@@ -320,7 +320,7 @@ Object {
             class="d-grid"
           >
             <button
-              class="btn btn-outline-secondary mx-1 w-auto"
+              class="btn btn-outline-secondary mx-1 w-auto btn-md"
               role="role-add-form"
             >
               Add
@@ -347,7 +347,7 @@ Object {
           class="d-grid"
         >
           <button
-            class="btn btn-outline-secondary mx-1 w-auto"
+            class="btn btn-outline-secondary mx-1 w-auto btn-md"
             role="role-add-form"
           >
             Add

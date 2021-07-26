@@ -1,12 +1,19 @@
 import PropTypes from 'prop-types'
 import React, { useRef } from 'react'
+import { DynamicFormSize } from '../Schema'
 import util from '../util'
 import { NodeForm } from './NodeForm'
 import { ROLE_INPUT_DYNAMIC_SUBMIT } from './roles'
+import { buttonSizeFromSchemaSize } from './helper/styleHelper'
 
 // TODO: Add overall end to end test for all types of form
 // TODO: Add test for keys with large schema.
-export const DynamicForm = ({ schema, onChange = () => {}, onSubmit }) => {
+export const DynamicForm = ({
+  schema,
+  onChange = () => {},
+  onSubmit,
+  submitSize = DynamicFormSize.medium
+}) => {
   // Value container to store values.
   const valueContainer = useRef({})
   const changeValue = ({ newValue }) => {
@@ -20,11 +27,17 @@ export const DynamicForm = ({ schema, onChange = () => {}, onSubmit }) => {
     }
   }
 
-  let submitButton
+  const submitButtonSize = buttonSizeFromSchemaSize(submitSize)
+  const className = {
+    card: 'd-grid gap-1',
+    submitButton: `btn btn-success mx-1 w-auto ${submitButtonSize}`
+  }
+
+  let submitButton = null
   if (util.isFunction(onSubmit)) {
     submitButton = (
       <button
-        className='btn btn-success mx-1 w-auto '
+        className={className.submitButton}
         role={ROLE_INPUT_DYNAMIC_SUBMIT}
         onClick={() => {
           onSubmit({ ...valueContainer.current })
@@ -36,7 +49,7 @@ export const DynamicForm = ({ schema, onChange = () => {}, onSubmit }) => {
   }
 
   return (
-    <div className='d-grid gap-1'>
+    <div className={className.card}>
       <NodeForm schema={schema} onChange={changeValue} />
       {submitButton}
     </div>
@@ -46,5 +59,6 @@ export const DynamicForm = ({ schema, onChange = () => {}, onSubmit }) => {
 DynamicForm.propTypes = {
   schema: PropTypes.object.isRequired,
   onChange: PropTypes.func,
-  onSubmit: PropTypes.func
+  onSubmit: PropTypes.func,
+  submitSize: PropTypes.string // TODO: Check only for allowed values.
 }
