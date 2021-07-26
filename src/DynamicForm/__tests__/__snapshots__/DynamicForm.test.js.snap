@@ -34,7 +34,7 @@ Object {
           </div>
         </div>
         <button
-          class="btn btn-success mx-1 w-auto btn-md"
+          class="btn btn-success mx-1 w-auto "
           role="input-dynamic-submit"
         >
           Submit
@@ -72,7 +72,7 @@ Object {
         </div>
       </div>
       <button
-        class="btn btn-success mx-1 w-auto btn-md"
+        class="btn btn-success mx-1 w-auto "
         role="input-dynamic-submit"
       >
         Submit

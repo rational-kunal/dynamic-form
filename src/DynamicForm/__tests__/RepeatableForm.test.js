@@ -3,7 +3,7 @@
 import { toBeInTheDocument } from '@testing-library/jest-dom'
 import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
-import { DynamicFormSize, DynamicFormType } from '../../Schema'
+import { DynamicFormType } from '../../Schema'
 import { RepeatableForm } from '../RepeatableForm'
 import {
   ROLE_ADD_FORM,
@@ -17,15 +17,13 @@ import {
 const GET_SIMPLE_REPEATABLE_FORM = ({
   onChange = () => {},
   key = null,
-  label = 'Repeatable Form',
-  size = DynamicFormSize.medium
+  label = 'Repeatable Form'
 }) => {
   return (
     <RepeatableForm
       atKey={key}
       schema={{
-        label,
-        size,
+        label: label,
         schema: {
           stringForm: {
             label: 'String Form',
@@ -165,64 +163,4 @@ test('RepeatableForm with empty label will not have any label', () => {
   const component = render(GET_SIMPLE_REPEATABLE_FORM({ label: '' }))
 
   expect(component.queryByRole(ROLE_LABEL_REPEATABLE)).toBeNull()
-})
-
-describe('RepeatableForm size is', () => {
-  test('small if small schema size is passed', () => {
-    const component = render(
-      GET_SIMPLE_REPEATABLE_FORM({ size: DynamicFormSize.small })
-    )
-
-    // Add sub-form
-    const addFormInput = component.getByRole(ROLE_ADD_FORM)
-    fireEvent.click(addFormInput)
-
-    const deleteFormInput = component.getByRole(ROLE_INPUT_NODE_DELETE)
-
-    expect(addFormInput.classList).toContain('btn-sm')
-    expect(deleteFormInput.classList).toContain('btn-sm')
-  })
-
-  test('medium if medium schema size is passed', () => {
-    const component = render(
-      GET_SIMPLE_REPEATABLE_FORM({ size: DynamicFormSize.medium })
-    )
-
-    // Add sub-form
-    const addFormInput = component.getByRole(ROLE_ADD_FORM)
-    fireEvent.click(addFormInput)
-
-    const deleteFormInput = component.getByRole(ROLE_INPUT_NODE_DELETE)
-
-    expect(addFormInput.classList).toContain('btn-md')
-    expect(deleteFormInput.classList).toContain('btn-md')
-  })
-
-  test('medium if no schema size is passed', () => {
-    const component = render(GET_SIMPLE_REPEATABLE_FORM({ size: undefined }))
-
-    // Add sub-form
-    const addFormInput = component.getByRole(ROLE_ADD_FORM)
-    fireEvent.click(addFormInput)
-
-    const deleteFormInput = component.getByRole(ROLE_INPUT_NODE_DELETE)
-
-    expect(addFormInput.classList).toContain('btn-md')
-    expect(deleteFormInput.classList).toContain('btn-md')
-  })
-
-  test('large if large schema size is passed', () => {
-    const component = render(
-      GET_SIMPLE_REPEATABLE_FORM({ size: DynamicFormSize.large })
-    )
-
-    // Add sub-form
-    const addFormInput = component.getByRole(ROLE_ADD_FORM)
-    fireEvent.click(addFormInput)
-
-    const deleteFormInput = component.getByRole(ROLE_INPUT_NODE_DELETE)
-
-    expect(addFormInput.classList).toContain('btn-lg')
-    expect(deleteFormInput.classList).toContain('btn-lg')
-  })
 })
