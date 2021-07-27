@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import util from '.'
+import util from 'common/util'
 
 describe('isUndefinedOrNull returns', () => {
   it('truthy if passed value is undefined', () => {

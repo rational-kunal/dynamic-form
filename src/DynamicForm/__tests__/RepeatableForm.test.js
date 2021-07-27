@@ -3,8 +3,9 @@
 import { toBeInTheDocument } from '@testing-library/jest-dom'
 import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
-import { DynamicFormSize, DynamicFormType } from '../../Schema'
-import { RepeatableForm } from '../RepeatableForm'
+
+import { DynamicFormSize, DynamicFormType } from 'Schema'
+import { RepeatableForm } from 'DynamicForm/RepeatableForm'
 import {
   ROLE_ADD_FORM,
   ROLE_COMPONENT_NODE,
@@ -12,7 +13,7 @@ import {
   ROLE_INPUT_NUMBER,
   ROLE_INPUT_STRING,
   ROLE_LABEL_REPEATABLE
-} from '../roles'
+} from 'DynamicForm/roles'
 
 const GET_SIMPLE_REPEATABLE_FORM = ({
   onChange = () => {},

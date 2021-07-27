@@ -3,8 +3,9 @@
 import { toBeInTheDocument } from '@testing-library/jest-dom'
 import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
-import { ROLE_INPUT_PASSWORD, ROLE_LABEL_TEXTY } from '../roles'
-import { PasswordForm } from '../TextyForm'
+
+import { ROLE_INPUT_PASSWORD, ROLE_LABEL_TEXTY } from 'DynamicForm/roles'
+import { PasswordForm } from 'DynamicForm/TextyForm'
 
 const GET_SIMPLE_PASSWORD_FORM = ({
   label = 'Password Form',

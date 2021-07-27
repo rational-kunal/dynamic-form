@@ -1,4 +1,4 @@
-import { DynamicFormSize } from '../../Schema'
+import { DynamicFormSize } from 'Schema'
 
 const buttonSizeFromSchemaSize = (schemaSize) => {
   if (schemaSize === DynamicFormSize.large) return 'btn-lg'

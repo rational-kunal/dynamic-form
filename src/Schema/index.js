@@ -1,3 +1,3 @@
-export { schema } from './schema'
-export { DynamicFormSize } from './size'
-export { DynamicFormType } from './type'
+export { schema } from 'Schema/schema'
+export { DynamicFormSize } from 'Schema/size'
+export { DynamicFormType } from 'Schema/type'
