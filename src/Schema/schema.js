@@ -1,7 +1,7 @@
 /* eslint-disable no-prototype-builtins */
-import util from '../util'
-import { DynamicFormSize } from './size'
-import { DynamicFormType } from './type'
+import util from 'common/util'
+import { DynamicFormSize } from 'Schema/size'
+import { DynamicFormType } from 'Schema/type'
 
 const schema = (sch) => {
   const expandedSch = {}

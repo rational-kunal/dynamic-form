@@ -3,9 +3,10 @@
 import { toBeInTheDocument } from '@testing-library/jest-dom'
 import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
-import { DynamicFormSize } from '../../Schema'
-import { ROLE_INPUT_STRING, ROLE_LABEL_TEXTY } from '../roles'
-import { StringForm } from '../TextyForm'
+
+import { DynamicFormSize } from 'Schema'
+import { ROLE_INPUT_STRING, ROLE_LABEL_TEXTY } from 'DynamicForm/roles'
+import { StringForm } from 'DynamicForm/TextyForm'
 
 const GET_SIMPLE_STRING_FORM = ({
   label = 'String Form',
