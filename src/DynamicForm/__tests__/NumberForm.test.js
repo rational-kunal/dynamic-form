@@ -3,10 +3,9 @@
 import { toBeInTheDocument } from '@testing-library/jest-dom'
 import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
-
-import { DynamicFormSize } from 'Schema'
-import { ROLE_INPUT_NUMBER, ROLE_LABEL_TEXTY } from 'DynamicForm/roles'
-import { NumberForm } from 'DynamicForm/TextyForm'
+import { DynamicFormSize } from '../../Schema'
+import { ROLE_INPUT_NUMBER, ROLE_LABEL_TEXTY } from '../roles'
+import { NumberForm } from '../TextyForm'
 
 const GET_SIMPLE_NUMBER_FORM = ({
   label = 'Number Form',

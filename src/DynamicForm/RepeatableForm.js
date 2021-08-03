@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types'
 import React, { useCallback, useRef, useState } from 'react'
-
-import util from 'common/util'
-import { buttonSizeFromSchemaSize } from 'DynamicForm/helper/styleHelper'
-import { NodeForm } from 'DynamicForm/NodeForm'
-import { ROLE_ADD_FORM, ROLE_LABEL_REPEATABLE } from 'DynamicForm/roles'
+import util from '../util'
+import { buttonSizeFromSchemaSize } from './helper/styleHelper'
+import { NodeForm } from './NodeForm'
+import { ROLE_ADD_FORM, ROLE_LABEL_REPEATABLE } from './roles'
 
 let keyIndex = 0
 const _RepeatableForm = ({ schema, atKey = null, onChange }) => {

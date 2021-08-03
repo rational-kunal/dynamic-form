@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-
-import { NodeForm } from 'DynamicForm/NodeForm'
-import { ROLE_LABEL_NESTED } from 'DynamicForm/roles'
+import { NodeForm } from './NodeForm'
+import { ROLE_LABEL_NESTED } from './roles'
 
 const _NestedForm = ({ schema, atKey = null, onChange }) => {
   const changeValue = ({ newValue }) => {

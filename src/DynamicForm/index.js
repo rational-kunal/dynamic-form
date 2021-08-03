@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types'
 import React, { useRef } from 'react'
-
-import { DynamicFormSize } from 'Schema'
-import util from 'common/util'
-import { NodeForm } from 'DynamicForm/NodeForm'
-import { ROLE_INPUT_DYNAMIC_SUBMIT } from 'DynamicForm/roles'
-import { buttonSizeFromSchemaSize } from 'DynamicForm/helper/styleHelper'
+import { DynamicFormSize } from '../Schema'
+import util from '../util'
+import { NodeForm } from './NodeForm'
+import { ROLE_INPUT_DYNAMIC_SUBMIT } from './roles'
+import { buttonSizeFromSchemaSize } from './helper/styleHelper'
 
 // TODO: Add overall end to end test for all types of form
 // TODO: Add test for keys with large schema.

@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types'
 import React, { useCallback, useRef } from 'react'
-
-import { DynamicFormSize, DynamicFormType } from 'Schema'
-import util from 'common/util'
-import { buttonSizeFromSchemaSize } from 'DynamicForm/helper/styleHelper'
-import { NestedForm } from 'DynamicForm/NestedForm'
-import { RepeatableForm } from 'DynamicForm/RepeatableForm'
-import { ROLE_COMPONENT_NODE, ROLE_INPUT_NODE_DELETE } from 'DynamicForm/roles'
-import { NumberForm, PasswordForm, StringForm } from 'DynamicForm/TextyForm'
+import { DynamicFormSize, DynamicFormType } from '../Schema'
+import util from '../util'
+import { buttonSizeFromSchemaSize } from './helper/styleHelper'
+import { NestedForm } from './NestedForm'
+import { RepeatableForm } from './RepeatableForm'
+import { ROLE_COMPONENT_NODE, ROLE_INPUT_NODE_DELETE } from './roles'
+import { NumberForm, PasswordForm, StringForm } from './TextyForm'
 
 // TODO: Add tests
 // TODO: On hover add border

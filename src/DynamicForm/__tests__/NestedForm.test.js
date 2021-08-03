@@ -3,14 +3,13 @@
 import { toBeInTheDocument } from '@testing-library/jest-dom'
 import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
-
-import { DynamicFormType } from 'Schema'
-import { NestedForm } from 'DynamicForm/NestedForm'
+import { DynamicFormType } from '../../Schema'
+import { NestedForm } from '../NestedForm'
 import {
   ROLE_INPUT_NUMBER,
   ROLE_INPUT_STRING,
   ROLE_LABEL_NESTED
-} from 'DynamicForm/roles'
+} from '../roles'
 
 const GET_SIMPLE_NESTED_FORM = ({
   onChange = () => {},
