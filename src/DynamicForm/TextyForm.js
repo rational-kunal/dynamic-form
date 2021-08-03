@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
-
-import { DynamicFormSize } from 'Schema'
-import util from 'common/util'
+import { DynamicFormSize } from '../Schema'
+import util from '../util'
 import {
   ROLE_INPUT_NUMBER,
   ROLE_INPUT_PASSWORD,
   ROLE_INPUT_STRING,
   ROLE_LABEL_TEXTY
-} from 'DynamicForm/roles'
+} from './roles'
 
 const TextyFormType = {
   text: 'text',

@@ -1,10 +1,9 @@
 /* eslint-disable no-undef */
 import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
-
-import { DynamicFormSize, DynamicFormType } from 'Schema'
-import { DynamicForm } from 'DynamicForm'
-import { ROLE_INPUT_DYNAMIC_SUBMIT, ROLE_INPUT_STRING } from 'DynamicForm/roles'
+import { DynamicFormSize, DynamicFormType } from '../../Schema'
+import { DynamicForm } from '../index'
+import { ROLE_INPUT_DYNAMIC_SUBMIT, ROLE_INPUT_STRING } from '../roles'
 
 const GET_SIMPLE_DYNAMIC_FORM = ({
   schema = {},

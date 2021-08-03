@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
-import { schema } from 'Schema/schema'
-import { DynamicFormType } from 'Schema/type'
-import { DynamicFormSize } from 'Schema/size'
+import { schema } from './schema'
+import { DynamicFormType } from './type'
+import { DynamicFormSize } from './size'
 
 const GET_SIMPLE_EXPANDED_NUMBER_FORM_SCHEMA = ({ size = null }) => {
   const numberForm = {
